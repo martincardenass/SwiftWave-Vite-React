@@ -1,0 +1,262 @@
+.nav-icons {
+    margin-top: .7rem;
+    cursor: pointer;
+    display: none;
+}
+
+.nav-burger-menu {
+    display: none;
+    cursor: pointer;
+}
+
+.nav-rxcross-menu {
+    display: none;
+}
+
+.nav-phone {
+    display: none;
+    justify-content: center;
+    background: white;
+    width: 100%;
+    height: 100vh;
+}
+
+.nav-phone_user {
+    padding: .5rem 0 1rem;
+    background: rgb(9,9,121);
+    background: linear-gradient(90deg, rgba(9,9,121,1) 0%, rgba(0,212,255,1) 100%); 
+    border-radius: 20px;
+}
+
+.nav-phone_user-banner {
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .5rem 0 1rem 0;
+}
+
+.nav-phone_user-banner img {
+    padding: 0 1rem 0 0;
+}
+
+.nav-phone_user-text p {
+    color: white;
+    font-size: 14px;
+}
+
+.nav-phone_user-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.nav-phone_user-buttons button {
+    padding: .25rem 1.25rem;
+    margin: 0 1rem;
+    border: none;
+    border-radius: 100px;
+}
+
+.nav-phone_user-buttons button a {
+    font-size: 14px;
+}
+
+.nav-phone_user-buttons button:first-child {
+    background: #fc466b;
+}
+
+.nav-phone_items {
+    padding: 1rem 0;
+    width: 85%;
+}
+
+.nav-phone_menu {
+    padding: 1rem 2rem;
+}
+
+.nav-phone_menu p {
+    margin: 1.1rem .75rem;
+}
+
+.nav-phone_menu-container {
+    padding: 0rem;
+    display:flex;
+}
+
+.nav-phone_bar {
+    width: 100%;
+    background-color: black;
+    margin: .25rem 0;
+    height: 1px;
+}
+
+.nav-phone_items a {
+    color: black;
+    font-size: 18px;
+    line-height: .5;
+}
+
+.nav-phone_separator {
+    background: black;
+    opacity: 0.1;
+    width: 100%;
+    height: 2px;
+}
+
+.nav {
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1a1a1a;
+}
+
+.nav a{
+    color: white;
+}
+
+.nav-links {
+    padding: 0 10rem;
+    display: flex;
+}
+
+.nav-links p {
+    padding: 1rem;
+}
+
+.nav-links a, .nav-phone a {
+    text-decoration: none;
+}
+
+.nav input {
+    padding: .5rem 1rem !important;
+    border: none !important;
+    border-radius: 25px;
+    background: #fff !important;
+}
+
+.nav-usermenu {
+    color: white;
+    padding: 1rem;
+    display: flex;
+}
+.nav-usermenu a {
+    
+    padding: 1rem;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 1050px) {
+    .nav {
+        padding: 0 1rem 0 0;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .nav a {
+        display: none;
+    }
+
+    .nav input {
+        width: 30%;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .nav-usermenu {
+        display: none;
+    }
+
+    .nav-icons {
+        display: flex;
+    }
+
+    .nav-burger-menu {
+        display: flex;
+        cursor: pointer;
+        transition: transform 2s ease-in-out;
+    }
+
+    .nav-burger-menu.animate {
+        animation: pulsate-bck 0.5s ease-in-out both;
+    }
+
+    .nav-rxcross-menu  {
+        display: flex;
+        cursor: pointer;
+    }
+
+    .nav-rxcross-menu.animate {
+        animation: pulsate-bck 0.5s ease-in-out both;
+    }
+
+    @-webkit-keyframes pulsate-bck {
+        0% {
+          -webkit-transform: scale(1);
+                  transform: scale(1);
+        }
+        50% {
+          -webkit-transform: scale(0.9);
+                  transform: scale(0.9);
+        }
+        100% {
+          -webkit-transform: scale(1);
+                  transform: scale(1);
+        }
+      }
+      @keyframes pulsate-bck {
+        0% {
+          -webkit-transform: scale(1);
+                  transform: scale(1);
+        }
+        50% {
+          -webkit-transform: scale(0.9);
+                  transform: scale(0.9);
+        }
+        100% {
+          -webkit-transform: scale(1);
+                  transform: scale(1);
+        }
+      }
+
+    .nav-phone {
+        display: flex;
+    }
+
+    @-webkit-keyframes scale-up-ver-top {
+        0% {
+          -webkit-transform: scaleY(0.4);
+                  transform: scaleY(0.4);
+          -webkit-transform-origin: 100% 0%;
+                  transform-origin: 100% 0%;
+        }
+        100% {
+          -webkit-transform: scaleY(1);
+                  transform: scaleY(1);
+          -webkit-transform-origin: 100% 0%;
+                  transform-origin: 100% 0%;
+        }
+    }
+      @keyframes scale-up-ver-top {
+        0% {
+          -webkit-transform: scaleY(0.4);
+                  transform: scaleY(0.4);
+          -webkit-transform-origin: 100% 0%;
+                  transform-origin: 100% 0%;
+        }
+        100% {
+          -webkit-transform: scaleY(1);
+                  transform: scaleY(1);
+          -webkit-transform-origin: 100% 0%;
+                  transform-origin: 100% 0%;
+        }
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .nav-links {
+        padding: 0;
+    }
+}

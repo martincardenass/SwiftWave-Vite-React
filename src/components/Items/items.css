@@ -1,0 +1,122 @@
+.manage-item {
+    background: black;
+    display: flex;
+    align-items: center;
+}
+
+.manage-item .centerthis {
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    display: block;
+}
+
+.manage-item_content {
+    display: flex;
+    padding: .25rem 2.5rem .25rem 0;
+    align-items: center;
+    display: flex;
+}
+
+.manage-item h1 {
+    padding: 0 10rem;
+    color: white;
+}
+
+.manage-item img {
+    object-fit: cover !important;
+    height: 200px;
+    width: 200px;
+    display: flex;
+}
+
+.create-item img {
+    width: auto;
+    height: auto;
+    max-width: 200px;
+    max-height: 200px;
+}
+p {
+    color: white;
+}
+
+input[type=text], input[type=number] {
+    border: none;
+    background: black;
+    border-bottom: 2px solid gray;
+    color: #fff;
+    font-size: 16px;
+    padding: 1rem;
+}
+input[type=file] {
+    color: white;
+}
+
+input[type=submit] {
+    padding: .5rem;
+    cursor: pointer;
+    background: #42BAFF;
+    border: none;
+    border: 1px solid #225F82;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: gray;
+}
+
+.manage-item .success {
+    display: flex;
+    color: white;
+    align-items: center;
+}
+
+
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+.flex > span {
+    margin-right: 5px;
+}
+
+.flex-bg {
+    padding: .25rem;
+    background: white;
+}
+
+.input {
+    background: red;
+    color: white;
+}
+
+.visible {
+    align-items: center;
+    justify-content: center;
+    display: block;
+}
+
+.notvisible {
+    display: none;
+}
+
+.visiblebg {
+    background: black;
+    opacity: 0.25;
+}
+
+.clicked {
+    margin-left: 5rem
+}
+
+.notclicked {
+    margin: 0;
+}
