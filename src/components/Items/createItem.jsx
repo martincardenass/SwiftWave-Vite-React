@@ -2,7 +2,6 @@ import React, { useState, useRef  } from "react"
 import "./items.css"
 import axios from "axios" //Para hacer solicitudes HTTP desde app web
 import { TbPhotoEdit } from "react-icons/tb"
-import { useEffect } from "react";
 
 const createItem = () => {
   const fileInputRef =useRef(null)
@@ -11,6 +10,7 @@ const createItem = () => {
   const [price, setPrice] = useState('')
   const [description, setDescription] = useState('')
   const [image, setImage] = useState('')
+  const [category, setCategory] = useState('')
   const [imageUrl, setImageUrl] = useState('')
 
   const handleSubmit = async (e) => {
@@ -21,8 +21,9 @@ const createItem = () => {
     formData.append("title", title);
     formData.append("price", price);
     formData.append("description", description);
+    formData.append("category", category);
 
-    !title || !price || !description || !image
+    !title || !price || !description || !image || !category
     ? setText('Please complete all fields')
     : (await axios.post('/additem', formData, {
       headers: {
@@ -78,6 +79,17 @@ const createItem = () => {
               placeholder="Description"
               onChange={(e) => setDescription(e.target.value)}
             />
+          </div>
+          <div className="manage-item_content">
+            <select  defaultValue='' name="sortField" id="sortField" onChange={(e) => setCategory(e.target.value)}>
+              <option value='' disabled>Select a category</option>
+              <option value='NoSpaces'>NoSpaces</option>
+              <option value='Software'>Software</option>
+              <option value='PC Parts and Hardware'>PC Parts and Hardware</option>
+              <option value='Video Games'>Video Games</option>
+              <option value='Cell Phones'>Cell Phones</option>
+              <option value='Television and Video'>Television and video</option>
+            </select>
           </div>
           <input type="submit" value='Create Item'/>
           <p className='success'>{text}</p>

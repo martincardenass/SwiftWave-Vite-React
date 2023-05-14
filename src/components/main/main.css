@@ -1,21 +1,30 @@
 .main  {
+    display: flex;
     align-items: center;
     justify-content: center;
-    margin: 1rem;
+}
+
+.main_content {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .main-items {
-    justify-content: center;
+    display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .main-items li {
+    align-items: center;
+    justify-content: center;
     margin: .5rem;
-    padding: 1rem;
     background: white;
     list-style: none;
-    text-align: center;
+    padding: 1rem;
+    width: 250px;
 }
 
 .main-items li:hover {
@@ -28,22 +37,21 @@
 }
 
 .main-items ul {
-    flex-wrap: wrap;
-    display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
+    display: flex;
 }
 
 .main-items img {
-    border-radius: 25px;
     object-fit: cover;
     cursor: pointer;
     width: 250px;
     height: 250px;
+    border-bottom: 2px solid gray;
 }
 
 .main-items h2 {
-    width: 250px;
     cursor: pointer;
     font-size: 28px;
 }
@@ -54,6 +62,30 @@
     color: black;
 }
 
-.sort {
+.main-sidebar {
+    align-items: center;
+    justify-content: center;
+    background: white;
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.25);
+    border-radius: 25px;
+    padding: 2rem;
+    display: block;
+}
+
+.main-sidebar .categories {
     display: flex;
+}
+
+.main-sidebar p {
+    color: black
+}
+
+.main-sidebar input {
+    background: white !important;
+    color: black !important;
+}
+
+select {
+    padding: .75rem;
+    font-size: 16px;
 }
