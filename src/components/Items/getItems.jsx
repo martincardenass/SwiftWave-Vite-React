@@ -4,34 +4,66 @@ import axios from 'axios'
 
 const GetItems = () => {
   const [products, setProducts] = useState([])
-  const [sort, setSort] = useState({ sort: 'date', order: 'desc', category: ''}) // default value asc 
+  const [all, setAll] = useState([])
+  const [pages, setPages] = useState('')
+  const [totalItems, setTotalItems] = useState('')
+  const [queryTotalPages, setQueryTotalPages] = useState('')
+  const [sort, setSort] = useState({ sort: 'date', order: 'desc', category: '', limit: '5', page: '1'}) // default values when loading the page
+  const controller = new AbortController()
 
-  useEffect(() => { // Uses Axios to get the items from dbURL/items (in which they're located
-    const getAllItems = async () => {
-      //const url = `/items?sortField=${sort.sort}&sortOrder=${sort.order}`
-      const url = `/items?sortField=${sort.sort}&sortOrder=${sort.order}&category=${sort.category}`
-      console.log(url)
-      await axios.get(url)
-          .then(response => setProducts(response.data.items))
+  useEffect(() => {
+    const getItemsByPage = async () => {
+      setProducts([])
+      setPages('')
+      setTotalItems('')
+      const url = `/items?sortOrder=${sort.order}&sortField=${sort.sort}&limit=${sort.limit}&page=${sort.page}&category=${sort.category}`
+      await axios.get(url, {signal: controller.signal})
+          .then(response => (setProducts(response.data.items), setPages(response.data.totalPages), setTotalItems(response.data.total), setQueryTotalPages(response.data.queryTotalPages)))
+      // console.log(url)
     }
-    getAllItems()
+
+    getItemsByPage()
+
+    return () => { //cleanup
+      controller.abort() //If user makes another request before the next one is completed, it gets cancelled
+    }
+
     }, [sort])
 
     const autoUpdateSort = (newSort) => {
       setSort(newSort)
     }
 
-  const productsArray = products.map(product => ({ //maping and exporting the data on the database so we can use each one indivdually as we need it
-    _id: product._id,
-    title: product.title,
-    price: product.price,
-    description: product.description,
-    date: product.date,
-    category: product.category,
-    image: `http://localhost:3001/${product.image}`
-  }))
+  useEffect(() => {
+    const controller = new AbortController()
+    const getAllItems = async () => {
+      const url = '/items/all'
+      await axios.get(url, {signal: controller.signal})
+            .then(response => (setAll(response.data.items)))
+    }
+    
+    getAllItems()
 
-  return { productsArray, autoUpdateSort }
+    return () => { // cleanup
+      controller.abort()
+    }
+  }, [])
+
+  const mapItems = (items) => {
+    return items.map((item) => ({
+      _id: item._id,
+      title: item.title,
+      price: item.price,
+      description: item.description,
+      date: item.date,
+      category: item.category,
+      image: `http://localhost:3001/${item.image}`
+    }))
+  }
+
+  const productsArray = mapItems(products)
+  const allProducts = mapItems(all)
+  return { productsArray, autoUpdateSort, pages, totalItems, allProducts, queryTotalPages }
 }
 
 export default GetItems

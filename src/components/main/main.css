@@ -1,26 +1,45 @@
 .main  {
-    display: flex;
+    display: block;
     align-items: center;
     justify-content: center;
+}
+
+.main .sort {
+    padding: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.main .sort p {
+    color: rgba(0,0,0,0.7);
+    margin-right: 5px;
 }
 
 .main_content {
     display: flex;
     align-items: center;
-    justify-content: center;
     text-align: center;
+    justify-content: center;
+    margin-right: auto;
+}
+
+.loading {
+    padding: 10rem;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
 }
 
 .main-items {
     display: flex;
     align-items: center;
-    justify-content: center;
 }
 
 .main-items li {
     align-items: center;
     justify-content: center;
-    margin: .5rem;
+    margin: 0 .5rem;
     background: white;
     list-style: none;
     padding: 1rem;
@@ -57,27 +76,38 @@
 }
 
 .main-items p {
-    cursor: pointer;
     font-size: 16px;
     color: black;
 }
 
 .main-sidebar {
-    align-items: center;
-    justify-content: center;
-    background: white;
-    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.25);
-    border-radius: 25px;
-    padding: 2rem;
+    margin-right: auto;
+    align-items: center;    
+    height: 100%;
+    padding: 0 5rem;
     display: block;
+    color: rgba(0,0,0,0.7);
 }
 
 .main-sidebar .categories {
     display: flex;
 }
 
+.main-sidebar .category {
+    padding: .25rem .75rem;
+    background: white;
+    border-radius: 2px;
+}
+
+.main-sidebar label {
+    cursor: pointer;
+    color: rgba(0,0,0,0.7);
+    line-height: 1.5;
+}
+
 .main-sidebar p {
-    color: black
+    color: black;
+    line-height: 1.5;
 }
 
 .main-sidebar input {
@@ -89,3 +119,95 @@ select {
     padding: .75rem;
     font-size: 16px;
 }
+
+nav {
+    display: flex;
+    justify-content: center;
+}
+        
+.pagination {
+    display: flex;
+    font-size: 16px;
+    list-style: none;
+    user-select: none;
+}
+
+.pagination li:first-child {
+    
+}
+
+.pagination li:last-child {
+    
+}
+
+.pagination a  {
+    text-decoration: none;
+}
+
+.pagination li {
+    cursor: pointer;
+    padding: .75rem 1rem;
+    margin: 2rem .25rem 0 .25rem;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.selected {
+    background-color: #333333;
+    color: white !important;
+}
+
+.hide-first:first-child {
+    display: none;
+}
+
+/**
+ * ==============================================
+ * Dot Flashing = https://codepen.io/nzbin/pen/GGrXbp
+ * ==============================================
+ */
+.dot-flashing {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: black;
+    color: black;
+    animation: dot-flashing 1s infinite linear alternate;
+    animation-delay: 0.5s;
+  }
+  .dot-flashing::before, .dot-flashing::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+  }
+  .dot-flashing::before {
+    left: -15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: black;
+    color: black;
+    animation: dot-flashing 1s infinite alternate;
+    animation-delay: 0s;
+  }
+  .dot-flashing::after {
+    left: 15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: black;
+    color: black;
+    animation: dot-flashing 1s infinite alternate;
+    animation-delay: 1s;
+  }
+  
+  @keyframes dot-flashing {
+    0% {
+      background-color: black;
+    }
+    50%, 100% {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+  }

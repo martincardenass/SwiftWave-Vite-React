@@ -29,7 +29,11 @@ const createItem = () => {
       headers: {
         "Content-Type": "multipart/form-data"
       },
-    }), setText('Data added!'))
+    }), setText(
+      <div>
+        <span>Successfully submitted: <p>{title}, {price}, {description}, {category}</p></span>
+      </div>
+    ))
   }
 
   const handleImgSubmit = () => {
@@ -83,7 +87,6 @@ const createItem = () => {
           <div className="manage-item_content">
             <select  defaultValue='' name="sortField" id="sortField" onChange={(e) => setCategory(e.target.value)}>
               <option value='' disabled>Select a category</option>
-              <option value='NoSpaces'>NoSpaces</option>
               <option value='Software'>Software</option>
               <option value='PC Parts and Hardware'>PC Parts and Hardware</option>
               <option value='Video Games'>Video Games</option>

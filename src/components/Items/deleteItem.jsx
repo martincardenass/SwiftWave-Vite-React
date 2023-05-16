@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const deleteItem = () => {
     const inputRef = useRef(null)
-    const {productsArray} = GetItems();
+    const {productsArray, allProducts} = GetItems();
     const [text, setText] = useState('')
     const [id, setId] = useState('') //store the selected product ID
     const [title, setTitle] = useState('') //store selected product Name
@@ -59,7 +59,7 @@ const deleteItem = () => {
     const handleInputSubmit = () => {
         inputRef.current.click()
     }
-    
+
     return (
     <div className="manage-item">
         <h1>Delete Item</h1>
@@ -67,10 +67,10 @@ const deleteItem = () => {
             <form onSubmit={handleSubmit}>
                 <select defaultValue='' onChange={handleChange}>
                     <option value='' disabled >Select...</option>
-                    {productsArray.map(product => (
-                    <option key={product._id} value={
-                        `${product._id}|${product.image}|${product.title}`
-                    }>{product.title}</option>
+                    {allProducts.map(item => (
+                    <option key={item._id} value={
+                        `${item._id}|${item.image}|${item.title}`
+                    }>{item.title}</option>
                     ))}
                 </select>
                 <input style={{display: 'none'}} type="submit" value='Delete' ref={inputRef} />

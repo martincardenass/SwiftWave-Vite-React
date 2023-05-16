@@ -8,7 +8,7 @@ const updateItem = () => {
     const fileInputRef = useRef(null)
     const inputRef = useRef(null)
     const selectRef = useRef(null)
-    const {productsArray} = GetItems()
+    const {productsArray, allProducts} = GetItems()
     const [text, setText] = useState('')
     const [id, setId] = useState('')
     const [title, setTitle] = useState('')
@@ -129,7 +129,7 @@ const updateItem = () => {
             <form onSubmit={handleSubmit}>
                 <select ref={selectRef} defaultValue='' onChange={handleChange}>
                     <option value='' disabled>Select...</option>
-                    {productsArray.map(product => (
+                    {allProducts.map(product => (
                         <option key={product._id} value={
                             `${product._id}|${product.image}|${product.title}|${product.price}|${product.description}` // asignandole a esta opcion todos estos valores, separados con un | para su facil acceso
                         }>{product.title}</option>
