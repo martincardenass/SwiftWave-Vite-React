@@ -132,14 +132,6 @@ nav {
     user-select: none;
 }
 
-.pagination li:first-child {
-    
-}
-
-.pagination li:last-child {
-    
-}
-
 .pagination a  {
     text-decoration: none;
 }
