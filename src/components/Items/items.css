@@ -30,6 +30,15 @@
     display: flex;
 }
 
+/* TEMPORAL */
+.item-details img {
+    object-fit: cover !important;
+    height: 200px;
+    width: 200px;
+    display: flex;
+}
+/* TEMPORAL */
+
 .create-item img {
     width: auto;
     height: auto;
@@ -37,7 +46,7 @@
     max-height: 200px;
 }
 p {
-    color: white;
+    color: black;
 }
 
 input[type=text], input[type=number] {

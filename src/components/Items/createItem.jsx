@@ -1,14 +1,15 @@
 import React, { useState, useRef  } from "react"
 import "./items.css"
-import axios from "axios" //Para hacer solicitudes HTTP desde app web
+import axios from "axios" // ! Para hacer solicitudes HTTP desde app web
 import { TbPhotoEdit } from "react-icons/tb"
-
+// ! git changes: added creation of 'amount' or 'quantity' tag. its actually called amount in db
 const createItem = () => {
   const fileInputRef =useRef(null)
   const [text, setText] = useState('')
-  const [title, setTitle] = useState('') // initializing as an empty string
+  const [title, setTitle] = useState('') // ! initializing as an empty string
   const [price, setPrice] = useState('')
   const [description, setDescription] = useState('')
+  const [amount, setAmount] = useState('')
   const [image, setImage] = useState('')
   const [category, setCategory] = useState('')
   const [imageUrl, setImageUrl] = useState('')
@@ -22,6 +23,7 @@ const createItem = () => {
     formData.append("price", price);
     formData.append("description", description);
     formData.append("category", category);
+    formData.append("amount", amount);
 
     !title || !price || !description || !image || !category
     ? setText('Please complete all fields')
@@ -82,6 +84,14 @@ const createItem = () => {
               value={description}
               placeholder="Description"
               onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
+          <div className="manage-item_content">
+            <input
+              type="number"
+              value={amount}
+              placeholder="Amount"
+              onChange={(e) => setAmount(e.target.value)}
             />
           </div>
           <div className="manage-item_content">

@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const deleteItem = () => {
     const inputRef = useRef(null)
-    const {productsArray, allProducts} = GetItems();
+    const {allProducts} = GetItems()
     const [text, setText] = useState('')
     const [id, setId] = useState('') //store the selected product ID
     const [title, setTitle] = useState('') //store selected product Name
