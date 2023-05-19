@@ -4,7 +4,7 @@
     justify-content: center;
 }
 
-.main .item {
+.item {
     padding: 2rem;
     background-color: white;
     width: 70%;
@@ -132,11 +132,7 @@
     cursor: default;
 }
 
-/* .main .item .descdetails {
-    background-color: red;
-} */
-
-.main .item .details {
+.item_details {
     padding: 5rem;
     border-radius: 5px;
     justify-content: center;
@@ -144,7 +140,7 @@
     display: flex;
 }
 
-.main .item .details img {
+.item_details img {
     width: 500px;
     max-width: 500px;
     height: 500px;
@@ -152,9 +148,9 @@
     object-fit: cover;
 }
 
-.main .item .details .content {
+.item_details-cnt {
     display: block;
-    padding: 1rem 4rem;
+    padding: 4rem;
     margin: 0 5rem;
     align-items: center;
     justify-content: center;
@@ -172,14 +168,14 @@
     color: rgb(255, 72, 0) !important;
 }
 
-.main .item .details .content .buttons {
+.item_btns {
     align-items: center;
     justify-content: center;
     display: flex;
     white-space: nowrap;
 }
 
-.main .item .details .content .buttons button:first-child {
+.item_btns button:first-child {
     cursor: pointer;
     background-color: #4db2ff;
     color: white;
@@ -190,7 +186,7 @@
 }
 
 
-.main .item .details .content .buttons button:nth-child(2) {
+.item_btns button:nth-child(2) {
     cursor: pointer;
     background-color: #d6d6d6;
     color: black;
@@ -201,28 +197,28 @@
     font-size: 20px;
 }
 
-.main .item .details h1  {
+.item_details h1  {
     font-size: 30px;
 }
 
-.main .item .details h3 {
+.item_details h3 {
     font-style: italic;
     font-size: 20px;
     color: rgba(0,0,0,0.75);
 }
 
-.main .item .details p {
+.item_details p {
     font-size: 10px;
 }
 
-.main .sort {
+.sort {
     padding: 1rem;
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
 
-.main .sort p {
+.sort p {
     color: rgba(0,0,0,0.7);
     margin-right: 5px;
 }

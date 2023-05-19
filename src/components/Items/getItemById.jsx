@@ -6,7 +6,6 @@ const getItemById = () => {
     const [searchId, setSearchId] = useState('')
     const [item, setItem] = useState({}) //? OBJECT for each individual item ID
 
-
     const autoUpdateId = (newSearchId) => {
         setSearchId(newSearchId)
       }
@@ -14,7 +13,7 @@ const getItemById = () => {
     useEffect(() => { //? GETS THE REQUESTED ITEM
         const controller = new AbortController() // ?necessary for cleanup
         const getItemById = async () => {
-        //!   setItemId([])
+          setItem({})
           const url = `/items/${searchId}`
           await axios.get(url, {signal: controller.signal})
                 .then(response => (setItem(response.data.item)))

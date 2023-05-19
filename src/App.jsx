@@ -11,9 +11,9 @@ export function App() {
             <DeleteItem />
             <UpdateItem />
             <Main />
-            <Sidebar />
+            {/* <Sidebar />
             <Content />
-            <Footer />
+            <Footer /> */}
         </>
     )
 }
