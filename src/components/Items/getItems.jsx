@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 const GetItems = () => {
   const [products, setProducts] = useState([]);
@@ -16,25 +17,29 @@ const GetItems = () => {
     page: "1",
   }); //? default values when loading the page
   const controller = new AbortController();
+  const location = useLocation();
 
   useEffect(() => {
     //? ITEMS DIVIDED BY PAGE
     const getItemsByPage = async () => {
-      setProducts([]);
-      setPages("");
-      setTotalItems("");
-      const url = `/items?sortOrder=${sort.order}&sortField=${sort.sort}&limit=${sort.limit}&page=${sort.page}&category=${sort.category}`;
-      await axios
-        .get(url, { signal: controller.signal })
-        .then(
-          (response) => (
-            setProducts(response.data.items),
-            setPages(response.data.totalPages),
-            setQueryPages(response.data.queryTotal),
-            setTotalItems(response.data.total),
-            setQueryTotalPages(response.data.queryTotalPages)
-          )
-        );
+      if (location.pathname === "/home") {
+        //? get items divided by page only if the path is /home
+        setProducts([]);
+        setPages("");
+        setTotalItems("");
+        const url = `/items?sortOrder=${sort.order}&sortField=${sort.sort}&limit=${sort.limit}&page=${sort.page}&category=${sort.category}`;
+        await axios
+          .get(url, { signal: controller.signal })
+          .then(
+            (response) => (
+              setProducts(response.data.items),
+              setPages(response.data.totalPages),
+              setQueryPages(response.data.queryTotal),
+              setTotalItems(response.data.total),
+              setQueryTotalPages(response.data.queryTotalPages)
+            )
+          );
+      }
     };
 
     getItemsByPage();
@@ -43,21 +48,28 @@ const GetItems = () => {
       //?cleanup
       controller.abort(); //?If user makes another request before the next one is completed, it gets cancelled
     };
-  }, [sort]);
+  }, [sort, location.pathname]);
 
   const autoUpdateSort = (newSort) => {
     setSort(newSort);
   };
 
-  useEffect(() => { //!Might optimize this
+  useEffect(() => {
+    //!Might optimize this
     //? GETS ALL THE ITEMS
     const controller = new AbortController();
     const getAllItems = async () => {
-      setAll([]);
-      const url = "/items/all";
-      await axios
-        .get(url, { signal: controller.signal })
-        .then((response) => setAll(response.data.items));
+      if (
+        //? get all the items only if the path is either delete, or update item
+        location.pathname === "/deleteitem" ||
+        location.pathname === "/updateitem"
+      ) {
+        setAll([]);
+        const url = "/items/all";
+        await axios
+          .get(url, { signal: controller.signal })
+          .then((response) => setAll(response.data.items));
+      }
     };
 
     getAllItems();
@@ -66,7 +78,7 @@ const GetItems = () => {
       //? cleanup
       controller.abort();
     };
-  }, []);
+  }, [location.pathname]);
 
   const mapItems = (items) => {
     //?mapping the items to use outside of the component

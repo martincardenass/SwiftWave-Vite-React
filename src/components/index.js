@@ -1,9 +1,6 @@
-export { default as Content } from './content/Content'
-export { default as Footer } from './footer/Footer'
 export { default as Header } from './header/Header'
 export { default as Main } from './main/Main'
 export { default as Navbar } from './navbar/Navbar'
-export { default as Sidebar } from './sidebar/Sidebar'
 
 export { default as Createitem } from './Items/createItem'
 export { default as DeleteItem } from './Items/deleteItem'

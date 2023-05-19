@@ -1,21 +1,27 @@
-import React from 'react';
-import './App.css'
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
 
-import { Content, Footer, Main, Navbar, Sidebar, Createitem, DeleteItem, UpdateItem } from './components'
+import {
+  Header,
+  Main,
+  Navbar,
+  Createitem,
+  DeleteItem,
+  UpdateItem,
+} from "./components";
 
 export function App() {
-    return (
-        <>
-            <Navbar />
-            <Createitem />
-            <DeleteItem />
-            <UpdateItem />
-            <Main />
-            <Sidebar />
-            <Content />
-            <Footer />
-        </>
-    )
+  return (
+    <Router>
+        <Routes>
+            <Route path="/home" element={<><Navbar /><Header /><Main /></>} />
+            <Route path="/createitem" element={ <Createitem/> }/>
+            <Route path="/deleteitem" element={ <DeleteItem/> }/>
+            <Route path="/updateitem" element={ <UpdateItem/> }/>
+        </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;

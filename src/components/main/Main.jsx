@@ -2,11 +2,15 @@ import React, { useEffect, useState } from "react";
 import "./main.css";
 import GetItems from "../Items/getItems";
 import getItemById from "../Items/getItemById";
-import { RiCloseLine } from "react-icons/ri";
+import LoadingAnim from "./LoadingAnim";
+import ItemCard from "./ItemCard";
+import CategoryFilter from "./CategoryFilter";
+import CategoryModel from "./CategoryModel";
+import SortOptions from "./SortOptions";
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 import { AiFillThunderbolt } from "react-icons/ai";
-import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
-// ? git changes: added total query request pages at the bottom, added itemDetails
+import { MdKeyboardArrowRight } from "react-icons/md";
+
 const Main = () => {
   const { productsArray, autoUpdateSort, queryPages, queryTotalPages } =
     GetItems();
@@ -26,10 +30,9 @@ const Main = () => {
   const [likeText, setLikeText] = useState("Like");
   const listItems = [];
 
-  const handleSortOrderChange = (e) => {
-    const splitValue = e.target.value.split("|");
-    setSortField(splitValue[0]);
-    setSortOrder(splitValue[1]);
+  const handleSortOrderChange = (sortField, sortOrder) => {
+    setSortField(sortField);
+    setSortOrder(sortOrder);
     setPage(1);
   };
 
@@ -45,9 +48,10 @@ const Main = () => {
     }
   }, [sortField, sortOrder]);
 
-  const handleCategoryChange = (e) => {
+  const handleCategoryChange = (selectedCategory) => {
+    //!
     setCategoryVisible(true);
-    setSortCategory(e.target.value);
+    setSortCategory(selectedCategory);
     setLimit(5);
     setPage(1);
   };
@@ -112,8 +116,9 @@ const Main = () => {
     }
   }
 
-  const handleSortCategoryAbort = () => {
-    setSortCategory("");
+  const handleSortCategoryAbort = (categoryAbort) => {
+    //!
+    setSortCategory(categoryAbort);
     setCategoryVisible(false);
     setPage(1);
   };
@@ -140,16 +145,7 @@ const Main = () => {
   };
 
   if (productsArray.length === 0) {
-    //*loading animation
-    return (
-      <div className="main">
-        <div className="main_content">
-          <div className="loading">
-            <div className="dot-flashing"></div>
-          </div>
-        </div>
-      </div>
-    );
+    return <LoadingAnim />;
   }
 
   if (item) {
@@ -214,10 +210,12 @@ const Main = () => {
                 alt="Product Image"
               />
               <div className="item_iconscontainer">
-                {item.isPopular === true ? <div className="item_imgandfav-thunder">
-                  <AiFillThunderbolt />
-                  <p>Popular item</p>
-                </div> : null}
+                {item.isPopular === true ? (
+                  <div className="item_imgandfav-thunder">
+                    <AiFillThunderbolt />
+                    <p>Popular item</p>
+                  </div>
+                ) : null}
                 <div className="item_imgandfav-fav">
                   {isClicked ? (
                     <IoHeartSharp
@@ -246,102 +244,30 @@ const Main = () => {
       //?default
       <>
         <div className="main">
-          <div className="sort">
-            <p>Sort items by:</p>
-            <select defaultValue="" onChange={handleSortOrderChange}>
-              <option value="" disabled hidden>
-                {categoryText}
-              </option>
-              <option value="date|desc">Newly added</option>
-              <option value="price|asc">Lower price first</option>
-              <option value="price|desc">Higher price first</option>
-            </select>
-          </div>
+          <SortOptions
+            sortField={sortField}
+            sortOrder={sortOrder}
+            categoryText={categoryText}
+            onSortChange={handleSortOrderChange}
+          />
           <div className="main-items">
             <div className="main-sidebar">
-              <div className={categoryVisible ? "category" : "hidden"}>
-                {sortCategory}
-                <div className="icon">
-                  <RiCloseLine onClick={handleSortCategoryAbort} />
-                </div>
-              </div>
-              <p>Filter by category</p>
-              <div className="categories">
-                <form onChange={handleCategoryChange}>
-                  <p>
-                    <label>
-                      Software
-                      <input
-                        type="radio"
-                        name="category"
-                        value="Software"
-                        hidden
-                      />
-                    </label>
-                  </p>
-                  <p>
-                    <label>
-                      PC Parts and Hardware
-                      <input
-                        type="radio"
-                        name="category"
-                        value="PC Parts and Hardware"
-                        hidden
-                      />
-                    </label>
-                  </p>
-                  <p>
-                    <label>
-                      Video Games
-                      <input
-                        type="radio"
-                        name="category"
-                        value="Video Games"
-                        hidden
-                      />
-                    </label>
-                  </p>
-                  <p>
-                    <label>
-                      Cell Phones
-                      <input
-                        type="radio"
-                        name="category"
-                        value="Cell Phones"
-                        hidden
-                      />
-                    </label>
-                  </p>
-                  <p>
-                    <label>
-                      Television and Video
-                      <input
-                        type="radio"
-                        name="category"
-                        value="Television and Video"
-                        hidden
-                      />
-                    </label>
-                  </p>
-                </form>
-              </div>
+              <CategoryModel
+                sortCategory={sortCategory}
+                categoryVisible={categoryVisible}
+                onCategoryAbort={handleSortCategoryAbort}
+              />
+              <CategoryFilter onCategoryChange={handleCategoryChange} />
             </div>
-            <div className="main_content">
-              <ul>
-                {productsArray.map((product) => (
-                  <li
-                    onClick={() => {
-                      setItemId(product._id);
-                    }}
-                    key={product._id}
-                  >
-                    <img src={product.image} alt={product.title} />
-                    <h2>{product.title}</h2>
-                    <p>${product.price}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {productsArray.map((product) => (
+              <ItemCard
+                key={product._id}
+                item={product}
+                onItemClick={(itemId) => {
+                  setItemId(itemId);
+                }}
+              />
+            ))}
           </div>
           <div className="query">
             <p>Total items: {queryPages}</p>
