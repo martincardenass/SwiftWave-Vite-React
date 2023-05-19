@@ -7,8 +7,8 @@ const deleteItem = () => {
     const inputRef = useRef(null)
     const {allProducts} = GetItems()
     const [text, setText] = useState('')
-    const [id, setId] = useState('') //store the selected product ID
-    const [title, setTitle] = useState('') //store selected product Name
+    const [id, setId] = useState('')
+    const [title, setTitle] = useState('')
     const [image, setImage] = useState('')
     const [isVisible, setIsVisible] = useState(false)
 
@@ -52,8 +52,6 @@ const deleteItem = () => {
         setId(splitValue[0])
         setImage(splitValue[1])
         setTitle(splitValue[2])
-        //setId(e.target.value)
-        //setTitle(e.target.options[e.target.selectedIndex].text) // Gets the Text content of the option
     }
 
     const handleInputSubmit = () => {

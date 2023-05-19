@@ -1,8 +1,6 @@
-//Logic for getting all the items from the database
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-// git changes: added query pages, and set query pages to determine in the front how many items are in the selected query. IE: how many items in the selected category
 const GetItems = () => {
   const [products, setProducts] = useState([]);
   const [all, setAll] = useState([]);
@@ -46,11 +44,12 @@ const GetItems = () => {
       controller.abort(); //?If user makes another request before the next one is completed, it gets cancelled
     };
   }, [sort]);
+
   const autoUpdateSort = (newSort) => {
     setSort(newSort);
   };
 
-  useEffect(() => {
+  useEffect(() => { //!Might optimize this
     //? GETS ALL THE ITEMS
     const controller = new AbortController();
     const getAllItems = async () => {

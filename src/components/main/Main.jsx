@@ -85,10 +85,6 @@ const Main = () => {
     });
   }, [sortField, sortOrder, sortCategory, page]);
 
-  // useEffect(() => { //!!!!!!!!!!!!!!!!!!!!!!!!!!
-  //   autoUpdateProducts(emptyProducts)
-  // }, [emptyProducts])
-
   useEffect(() => {
     autoUpdateId(itemId);
   }, [itemId]);

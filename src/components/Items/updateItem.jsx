@@ -59,7 +59,7 @@ const updateItem = () => {
                 </div>
                 <div className="manage-item_content">
                   <input
-                    type="text"
+                    type="number"
                     placeholder={`${price} < modify price`}
                     onChange={(e) => setPrice(e.target.value)}
                   />
