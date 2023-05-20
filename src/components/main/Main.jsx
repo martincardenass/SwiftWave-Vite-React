@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./main.css";
 import GetItems from "../Items/getItems";
 import getItemById from "../Items/getItemById";
+import ItemDetails from "./ItemDetails"
 import LoadingAnim from "./LoadingAnim";
 import ItemCard from "./ItemCard";
 import CategoryFilter from "./CategoryFilter";
 import CategoryModel from "./CategoryModel";
 import SortOptions from "./SortOptions";
-import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
-import { AiFillThunderbolt } from "react-icons/ai";
-import { MdKeyboardArrowRight } from "react-icons/md";
 
 const Main = () => {
   const { productsArray, autoUpdateSort, queryPages, queryTotalPages } =
@@ -25,10 +23,21 @@ const Main = () => {
   const [leftClick, setLeftClick] = useState(false);
   const [categoryVisible, setCategoryVisible] = useState(false);
   const [itemId, setItemId] = useState("");
-  const [count, setCount] = useState(1);
-  const [isClicked, setIsClicked] = useState(false);
-  const [likeText, setLikeText] = useState("Like");
   const listItems = [];
+
+  useEffect(() => {
+    autoUpdateId(itemId);
+  }, [itemId]);
+
+    useEffect(() => {
+    autoUpdateSort({
+      sort: sortField,
+      order: sortOrder,
+      category: sortCategory,
+      page: page,
+      limit: limit,
+    });
+  }, [sortField, sortOrder, sortCategory, page]);
 
   const handleSortOrderChange = (sortField, sortOrder) => {
     setSortField(sortField);
@@ -79,20 +88,6 @@ const Main = () => {
     }
   };
 
-  useEffect(() => {
-    autoUpdateSort({
-      sort: sortField,
-      order: sortOrder,
-      category: sortCategory,
-      page: page,
-      limit: limit,
-    });
-  }, [sortField, sortOrder, sortCategory, page]);
-
-  useEffect(() => {
-    autoUpdateId(itemId);
-  }, [itemId]);
-
   for (let i = 1; i <= queryTotalPages; i++) {
     if (i > 5) {
       //? if es greater than 5. Do not display numbers anymore. Display dots.
@@ -117,7 +112,6 @@ const Main = () => {
   }
 
   const handleSortCategoryAbort = (categoryAbort) => {
-    //!
     setSortCategory(categoryAbort);
     setCategoryVisible(false);
     setPage(1);
@@ -139,105 +133,10 @@ const Main = () => {
     setRightClick(false);
   };
 
-  const handleClick = () => {
-    setIsClicked(!isClicked);
-    setLikeText(isClicked ? ":(" : "Liked!");
-  };
-
   if (productsArray.length === 0) {
     return <LoadingAnim />;
   }
 
-  if (item) {
-    //? if item exists, display it
-    return (
-      <div className="main">
-        <div className="item">
-          <div className="item_details">
-            <div className="item_details-cnt">
-              <div className="item_category">
-                <p style={{ display: "flex", alignItems: "center" }} key={4}>
-                  All items <MdKeyboardArrowRight />{" "}
-                  <span>{item.category}</span>
-                </p>
-              </div>
-              <div className="item_text">
-                <h1 key={1}>{item.title}</h1>
-                <h3 key={2}>${item.price}</h3>
-              </div>
-              <div className="item-quantitytext">
-                <p>Qty:</p>
-                <div className="item_quantity">
-                  <button
-                    onClick={() =>
-                      setCount((count) => (count > 1 ? count - 1 : 1))
-                    }
-                  >
-                    -
-                  </button>
-                  <input maxLength="2" value={count} />
-                  <button
-                    onClick={() =>
-                      setCount((count) =>
-                        count < item.amount ? count + 1 : item.amount
-                      )
-                    }
-                  >
-                    +
-                  </button>
-                </div>
-                <p key={5}>{item.amount || "undefined"} in stock</p>
-              </div>
-              <div className="item_btns">
-                <button>Purchaste now</button>
-                <button>Add to cart</button>
-              </div>
-              <p key={6}>{item.description}</p>
-            </div>
-            <div className="item_imgandfav" key={item.image}>
-              <div className="flex">
-                <p
-                  onClick={() => {
-                    setItemId(""); //? exists the Item Details by setting their object value to an empty string
-                  }}
-                >
-                  Back to all items
-                </p>
-                <MdKeyboardArrowRight />
-              </div>
-              <img
-                src={`http://localhost:3001/${item.image}`}
-                alt="Product Image"
-              />
-              <div className="item_iconscontainer">
-                {item.isPopular === true ? (
-                  <div className="item_imgandfav-thunder">
-                    <AiFillThunderbolt />
-                    <p>Popular item</p>
-                  </div>
-                ) : null}
-                <div className="item_imgandfav-fav">
-                  {isClicked ? (
-                    <IoHeartSharp
-                      style={{ cursor: "pointer" }}
-                      onClick={handleClick}
-                    />
-                  ) : (
-                    <IoHeartOutline
-                      style={{ cursor: "pointer" }}
-                      onClick={handleClick}
-                    />
-                  )}
-                  <p onClick={handleClick}>{likeText}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* <div className="descdetails"><p key={3}>{item.description}</p></div> */}
-        </div>
-      </div>
-    );
-  }
 
   if (!item) {
     return (
@@ -299,6 +198,11 @@ const Main = () => {
       </>
     );
   }
+
+  if (item) {
+    return <ItemDetails item={item}/>
+  }
+
 };
 
 export default Main;
