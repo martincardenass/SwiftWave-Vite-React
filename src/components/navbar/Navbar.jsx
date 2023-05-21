@@ -10,10 +10,14 @@ import { MdHistory } from "react-icons/md";
 import { MdOutlineCategory } from "react-icons/md";
 import { MdHelpOutline } from "react-icons/md";
 import { MdDataExploration } from "react-icons/md";
+import { Link } from 'react-router-dom';
 
 const MenuCategories = () => (
   <>
-    <MdOutlineCategory className='nav-icons' color='#000' size='1.75rem' /><p><a href="">Categories</a></p>
+    <MdOutlineCategory className='nav-icons' color='#000' size='1.75rem' />
+    <p>
+      <Link to='/'>Home</Link>
+    </p>
   </>
 )
 
@@ -46,11 +50,15 @@ const NavBarItems = [
 ]
 
 const SignUp = () => (
-  <p><a href="">Sign Up</a></p>
+  <p>
+    <Link to='/signup'>Sign Up</Link>
+  </p>
 )
 
 const Login = () => (
-  <p><a href="">Log In</a></p>
+  <p>
+    <Link to='/login'>Log In</Link>
+  </p>
 )
 
 const Navbar = () => {

@@ -24,8 +24,8 @@ const Main = () => {
   const [leftClick, setLeftClick] = useState(false);
   const [categoryVisible, setCategoryVisible] = useState(false);
   const listItems = [];
-  const { id } = useParams()
-  const location = useLocation()
+  const { id } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     autoUpdateSort({
@@ -153,7 +153,7 @@ const Main = () => {
                 categoryVisible={categoryVisible}
                 onCategoryAbort={handleSortCategoryAbort}
               />
-              <CategoryFilter onCategoryChange={handleCategoryChange} />
+                <CategoryFilter onCategoryChange={handleCategoryChange} />
             </div>
             {productsArray.map((product) => (
               <Link key={product._id} to={`items/${product._id}`}>
@@ -166,7 +166,7 @@ const Main = () => {
           </div>
           <nav>
             <ul className="pagination">
-              <li   
+              <li
                 onClick={handlePageChange}
                 onMouseDown={handleLeftClick}
                 onMouseLeave={handleLeftRelease}
@@ -193,7 +193,7 @@ const Main = () => {
   }
 
   if (id) {
-    return <ItemDetails item={item}/>;
+    return <ItemDetails item={item} />;
   }
 };
 

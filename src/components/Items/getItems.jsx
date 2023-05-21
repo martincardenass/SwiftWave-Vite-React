@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const GetItems = () => {
   const [products, setProducts] = useState([]);
@@ -18,11 +18,13 @@ const GetItems = () => {
   }); //? default values when loading the page
   const controller = new AbortController();
   const location = useLocation()
+  const url = location.pathname
+  const navigate = useNavigate()
 
   useEffect(() => {
     //? ITEMS DIVIDED BY PAGE
     const getItemsByPage = async () => {
-      if (location.pathname === "/") {
+      if (url === "/") {
         //? get items divided by page only if the path is /home
         setProducts([]);
         setPages("");
@@ -31,13 +33,13 @@ const GetItems = () => {
         await axios
           .get(url, { signal: controller.signal })
           .then(
-            (response) => (
+            (response) => {
               setProducts(response.data.items),
               setPages(response.data.totalPages),
               setQueryPages(response.data.queryTotal),
               setTotalItems(response.data.total),
               setQueryTotalPages(response.data.queryTotalPages)
-            )
+            }
           );
       }
     };
@@ -48,7 +50,7 @@ const GetItems = () => {
       //?cleanup
       controller.abort(); //?If user makes another request before the next one is completed, it gets cancelled
     };
-  }, [sort, location.pathname]);
+  }, [sort, url, navigate]);
 
   const autoUpdateSort = (newSort) => {
     setSort(newSort);
@@ -61,8 +63,8 @@ const GetItems = () => {
     const getAllItems = async () => {
       if (
         //? get all the items only if the path is either delete, or update item
-        location.pathname === "/deleteitem" ||
-        location.pathname === "/updateitem"
+        url === "/deleteitem" ||
+        url === "/updateitem"
       ) {
         setAll([]);
         const url = "/items/all";
@@ -78,7 +80,7 @@ const GetItems = () => {
       //? cleanup
       controller.abort();
     };
-  }, [location.pathname]);
+  }, [url]);
 
   const mapItems = (items) => {
     //?mapping the items to use outside of the component

@@ -1,0 +1,29 @@
+.signup-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    /* height: 100vh; */
+  }
+  
+  .signup-form-text {
+    padding: 5rem;
+    
+  }
+  
+  .signup-form input {
+    color: black;
+    width: 100%;
+    background: transparent;
+    box-sizing: border-box;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+ .signup-form input:focus {
+    outline: none;
+  }
+
+  .signup-form input[type="submit"] {
+    border-radius: 5px;
+  }
