@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import "./main.css";
 import GetItems from "../Items/getItems";
 import getItemById from "../Items/getItemById";
-import ItemDetails from "./ItemDetails"
+import ItemDetails from "./ItemDetails";
 import LoadingAnim from "./LoadingAnim";
 import ItemCard from "./ItemCard";
 import CategoryFilter from "./CategoryFilter";
 import CategoryModel from "./CategoryModel";
 import SortOptions from "./SortOptions";
+import { Link, useParams } from "react-router-dom";
 
 const Main = () => {
   const { productsArray, autoUpdateSort, queryPages, queryTotalPages } =
@@ -29,7 +30,7 @@ const Main = () => {
     autoUpdateId(itemId);
   }, [itemId]);
 
-    useEffect(() => {
+  useEffect(() => {
     autoUpdateSort({
       sort: sortField,
       order: sortOrder,
@@ -137,7 +138,6 @@ const Main = () => {
     return <LoadingAnim />;
   }
 
-
   if (!item) {
     return (
       //?default
@@ -159,13 +159,15 @@ const Main = () => {
               <CategoryFilter onCategoryChange={handleCategoryChange} />
             </div>
             {productsArray.map((product) => (
-              <ItemCard
-                key={product._id}
-                item={product}
-                onItemClick={(itemId) => {
-                  setItemId(itemId);
-                }}
-              />
+              <Link to= {`items/${product._id}`}>
+                <ItemCard
+                  key={product._id}
+                  item={product}
+                  onItemClick={(itemId) => {
+                    setItemId(itemId);
+                  }}
+                />
+                </Link>
             ))}
           </div>
           <div className="query">
@@ -200,9 +202,8 @@ const Main = () => {
   }
 
   if (item) {
-    return <ItemDetails item={item}/>
+    return <ItemDetails item={item} />;
   }
-
 };
 
 export default Main;

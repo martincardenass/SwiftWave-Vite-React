@@ -17,12 +17,12 @@ const GetItems = () => {
     page: "1",
   }); //? default values when loading the page
   const controller = new AbortController();
-  const location = useLocation();
+  const location = useLocation()
 
   useEffect(() => {
     //? ITEMS DIVIDED BY PAGE
     const getItemsByPage = async () => {
-      if (location.pathname === "/home") {
+      if (location.pathname === "/") {
         //? get items divided by page only if the path is /home
         setProducts([]);
         setPages("");

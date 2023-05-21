@@ -2,11 +2,13 @@
     display: block;
     align-items: center;
     justify-content: center;
+    background: #1a1a1a;
 }
 
 .header h1 {
     text-align: center;
     padding: 2rem 0;
+    color: #fff;
     font-size: 24px;
 }
 
