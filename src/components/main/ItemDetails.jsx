@@ -3,22 +3,23 @@ import "./main.css";
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 import { AiFillThunderbolt } from "react-icons/ai";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 
 const ItemDetails = ({ item }) => {
   const [count, setCount] = useState(1);
   const [isClicked, setIsClicked] = useState(false);
   const [likeText, setLikeText] = useState("Like");
+  const navigate = useNavigate()
 
   const handleClick = () => {
     setIsClicked(!isClicked);
     setLikeText(isClicked ? ":(" : "Liked!");
   };
 
-  // const handleReturn = () => {
-  //   navigate('/') //!This will navigate back home
-  // }
+  const handleReturn = () => {
+    navigate('/') //!This will navigate back home
+  }
 
   return (
     <>
@@ -46,7 +47,7 @@ const ItemDetails = ({ item }) => {
                   >
                     -
                   </button>
-                  <input maxLength="2" value={count} />
+                  <input maxLength="2" value={count} readOnly />
                   <button
                     onClick={() =>
                       setCount((count) =>
@@ -67,7 +68,7 @@ const ItemDetails = ({ item }) => {
             </div>
             <div className="item_imgandfav" key={item.image}>
               <div className="flex">
-                <p>Back to all items</p>
+                <p onClick={handleReturn} >Back to all items</p>
                 <MdKeyboardArrowRight />
               </div>
               <img

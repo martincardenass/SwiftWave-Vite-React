@@ -8,12 +8,12 @@ import ItemCard from "./ItemCard";
 import CategoryFilter from "./CategoryFilter";
 import CategoryModel from "./CategoryModel";
 import SortOptions from "./SortOptions";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 const Main = () => {
   const { productsArray, autoUpdateSort, queryPages, queryTotalPages } =
     GetItems();
-  const { autoUpdateId, item } = getItemById();
+  const { item } = getItemById();
   const [sortField, setSortField] = useState("date");
   const [sortOrder, setSortOrder] = useState("desc");
   const [sortCategory, setSortCategory] = useState("");
@@ -23,12 +23,9 @@ const Main = () => {
   const [rightClick, setRightClick] = useState(false);
   const [leftClick, setLeftClick] = useState(false);
   const [categoryVisible, setCategoryVisible] = useState(false);
-  const [itemId, setItemId] = useState("");
   const listItems = [];
-
-  useEffect(() => {
-    autoUpdateId(itemId);
-  }, [itemId]);
+  const { id } = useParams()
+  const location = useLocation()
 
   useEffect(() => {
     autoUpdateSort({
@@ -138,7 +135,7 @@ const Main = () => {
     return <LoadingAnim />;
   }
 
-  if (!item) {
+  if (!id) {
     return (
       //?default
       <>
@@ -159,15 +156,9 @@ const Main = () => {
               <CategoryFilter onCategoryChange={handleCategoryChange} />
             </div>
             {productsArray.map((product) => (
-              <Link to= {`items/${product._id}`}>
-                <ItemCard
-                  key={product._id}
-                  item={product}
-                  onItemClick={(itemId) => {
-                    setItemId(itemId);
-                  }}
-                />
-                </Link>
+              <Link key={product._id} to={`items/${product._id}`}>
+                <ItemCard key={product._id} item={product} />
+              </Link>
             ))}
           </div>
           <div className="query">
@@ -175,7 +166,7 @@ const Main = () => {
           </div>
           <nav>
             <ul className="pagination">
-              <li
+              <li   
                 onClick={handlePageChange}
                 onMouseDown={handleLeftClick}
                 onMouseLeave={handleLeftRelease}
@@ -201,8 +192,8 @@ const Main = () => {
     );
   }
 
-  if (item) {
-    return <ItemDetails item={item} />;
+  if (id) {
+    return <ItemDetails item={item}/>;
   }
 };
 

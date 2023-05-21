@@ -23,15 +23,16 @@ export function App() {
       <Routes>
         <Route path="/" element={<Main />}>
           <Route path="/items/:id" element={<ItemDetails />} />
-        </Route>
+          </Route>
         <Route path="/createitem" element={<Createitem />} />
         <Route path="/deleteitem" element={<DeleteItem />} />
         <Route path="/updateitem" element={<UpdateItem />} />
         {/* //! Item links */}
 
-        {/* <Route path="items/:id" element={<ItemDetails />} /> */}
+        <Route path="/items/:id" element={<ItemDetails />} />
+        
         {/* //! 404 */}
-        <Route path="*" element={<h1>Not found</h1>} /> //! Necesito hacer esto en el server, ya que esto es 404 SOFT, pero el server status no es 404.
+        <Route path="*" element={<h1>Not found</h1>} /> {/*//! Necesito hacer esto en el server, ya que esto es 404 SOFT, pero el server status no es 404. */}
       </Routes>
     </>
   );
