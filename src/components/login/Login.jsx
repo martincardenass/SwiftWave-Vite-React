@@ -11,6 +11,8 @@ const Login = () => {
             <p>
               Log In to an existing account.
             </p>
+            <p className="small">Username: user</p>
+            <p className="small">Password: password</p>
           </div>
           <form>
             <div className="input-container">

@@ -35,7 +35,7 @@ const  MenuHistory = () => (
 
 const MenuSellWithUs = () => (
   <>
-    <MdDataExploration className='nav-icons' color='#000' size='1.75rem' /><p><a href="">Sell with us?</a></p>
+    <MdDataExploration className='nav-icons' color='#000' size='1.75rem' /><p><a href="">Sell with us</a></p>
   </>
 )
 
