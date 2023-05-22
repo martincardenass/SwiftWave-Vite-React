@@ -22,10 +22,10 @@
 }
 
 .nav-phone_user {
-    padding: .5rem 0 1rem;
+    padding: 1rem;
     background: rgb(9,9,121);
     background: linear-gradient(90deg, rgba(9,9,121,1) 0%, rgba(0,212,255,1) 100%); 
-    border-radius: 20px;
+    border-radius: 15px;
 }
 
 .nav-phone_user-banner {
@@ -33,7 +33,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: .5rem 0 1rem 0;
 }
 
 .nav-phone_user-banner img {
@@ -46,11 +45,13 @@
 }
 
 .nav-phone_user-buttons {
+    margin-top: 10px;
     display: flex;
     justify-content: center;
 }
 
 .nav-phone_user-buttons button {
+    cursor: pointer;
     padding: .25rem 1.25rem;
     margin: 0 1rem;
     border: none;
@@ -146,6 +147,11 @@
     text-decoration: none;
 }
 
+.logout {
+    color: #fff;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 1050px) {
     .nav {
         padding: 0 1rem 0 0;
@@ -166,6 +172,10 @@
     }
 
     .nav-usermenu {
+        display: none;
+    }
+
+    .logout {
         display: none;
     }
 

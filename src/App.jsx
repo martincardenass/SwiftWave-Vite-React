@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes, Router, useParams } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
 
 import {
@@ -12,27 +12,25 @@ import {
   ItemDetails,
   ItemCard,
   SignUp,
-  Login
+  Login,
 } from "./components";
 
 export function App() {
+  const user = localStorage.getItem('token')
   return (
     <>
       <Navbar />
-      {/* <Header /> */}
-      {/*//? Will always render, regardless of the route.*/}
 
       <Routes>
-        <Route path="/" element={<Main />}>
+        {user &&<Route path="/" element={<Main />}>
           <Route path="/items/:id" element={<ItemDetails />} />
-        </Route>
+        </Route>}
         <Route path="/createitem" element={<Createitem />} />
         <Route path="/deleteitem" element={<DeleteItem />} />
         <Route path="/updateitem" element={<UpdateItem />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
-        {/* <Route path="/items" element={<Main />} /> */}
-        <Route path="*" element={<h1>Not found</h1>} />
+        {<Route path="/signup" element={user ? <Navigate to= '/'/> : <SignUp />} />}
+        {<Route path="/login" element={user ? <Navigate to= '/'/> : <Login /> } />}
+        <Route path="*" element={<h1>Log in first</h1>} />
       </Routes>
     </>
   );
