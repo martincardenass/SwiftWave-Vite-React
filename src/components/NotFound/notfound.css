@@ -1,0 +1,31 @@
+.notfound {
+    display: flex;
+    height: 90vh;
+}
+
+.notfound_content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+}
+
+.notfound h1 {
+    font-size: 100px;
+}
+
+.notfound h2 {
+    font-size: 50px;
+}
+
+.text {
+    cursor: pointer;
+    display: flex;
+    font-size: 20px;
+}
+
+.margin {
+    margin-top: 4px;
+}

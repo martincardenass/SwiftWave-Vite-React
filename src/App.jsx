@@ -13,6 +13,7 @@ import {
   ItemCard,
   SignUp,
   Login,
+  NotFound
 } from "./components";
 
 export function App() {
@@ -20,17 +21,18 @@ export function App() {
   return (
     <>
       <Navbar />
+      {user && <Header/>}
 
       <Routes>
-        {user &&<Route path="/" element={<Main />}>
+        <Route path="/" element={<Main />}>
           <Route path="/items/:id" element={<ItemDetails />} />
-        </Route>}
-        <Route path="/createitem" element={<Createitem />} />
-        <Route path="/deleteitem" element={<DeleteItem />} />
-        <Route path="/updateitem" element={<UpdateItem />} />
+        </Route>
+        <Route path="/createitem" element={user ? <Createitem/> : <Navigate to='/'/>} />
+        <Route path="/deleteitem" element={user ? <DeleteItem/> : <Navigate to='/'/>} />
+        <Route path="/updateitem" element={user ? <UpdateItem/> : <Navigate to='/'/>} />
         {<Route path="/signup" element={user ? <Navigate to= '/'/> : <SignUp />} />}
         {<Route path="/login" element={user ? <Navigate to= '/'/> : <Login /> } />}
-        <Route path="*" element={<h1>Log in first</h1>} />
+        <Route path="*" element={<NotFound/>} />
       </Routes>
     </>
   );
