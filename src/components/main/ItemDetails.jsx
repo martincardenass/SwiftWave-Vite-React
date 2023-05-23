@@ -3,7 +3,7 @@ import "./main.css";
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 import { AiFillThunderbolt } from "react-icons/ai";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 const ItemDetails = ({ item }) => {

@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./items.css";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const getItemById = () => {
   const [item, setItem] = useState({}); //? OBJECT for each individual item ID
-  const location = useLocation()
   const { id } = useParams()
 
   useEffect(() => {
     //? GETS THE REQUESTED ITEM
     const controller = new AbortController(); // ?necessary for cleanup
     const getItemById = async () => {
-      if(location.pathname === `/items/${id}`) {
+      if(location.pathname === `/items/${id}` || location.pathname === `/popularitems/${id}`) {
       setItem({})
       const url = `/items/${id}`;
       await axios

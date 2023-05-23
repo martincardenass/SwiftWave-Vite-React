@@ -13,8 +13,8 @@ const GetItems = () => {
     sort: "date",
     order: "desc",
     category: "",
-    limit: "5",
-    page: "1",
+    limit: "",
+    page: "",
   }); //? default values when loading the page
   const controller = new AbortController();
   const location = useLocation()

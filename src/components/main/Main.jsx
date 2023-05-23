@@ -8,7 +8,7 @@ import ItemCard from "./ItemCard";
 import CategoryFilter from "./CategoryFilter";
 import CategoryModel from "./CategoryModel";
 import SortOptions from "./SortOptions";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const Main = () => {
   const { productsArray, autoUpdateSort, queryPages, queryTotalPages } =
@@ -25,7 +25,6 @@ const Main = () => {
   const [categoryVisible, setCategoryVisible] = useState(false);
   const listItems = [];
   const { id } = useParams();
-  const location = useLocation();
 
   useEffect(() => {
     autoUpdateSort({
@@ -59,7 +58,7 @@ const Main = () => {
     //!
     setCategoryVisible(true);
     setSortCategory(selectedCategory);
-    setLimit(5);
+    setLimit(20);
     setPage(1);
   };
 
@@ -131,9 +130,9 @@ const Main = () => {
     setRightClick(false);
   };
 
-  if (productsArray.length === 0) {
-    return <LoadingAnim />;
-  }
+  // if (productsArray.length === 0) {
+  //   return <LoadingAnim />;
+  // }
 
   if (!id) {
     return (
@@ -153,13 +152,15 @@ const Main = () => {
                 categoryVisible={categoryVisible}
                 onCategoryAbort={handleSortCategoryAbort}
               />
-                <CategoryFilter onCategoryChange={handleCategoryChange} />
+              <CategoryFilter onCategoryChange={handleCategoryChange} />
             </div>
-            {productsArray.map((product) => (
-              <Link key={product._id} to={`items/${product._id}`}>
-                <ItemCard key={product._id} item={product} />
-              </Link>
-            ))}
+            <div className="main-items_items">
+              {productsArray.map((product) => (
+                <Link key={product._id} to={`items/${product._id}`}>
+                  <ItemCard key={product._id} item={product} />
+                </Link>
+              ))}
+            </div>
           </div>
           <div className="query">
             <p>Total items: {queryPages}</p>

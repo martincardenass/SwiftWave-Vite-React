@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
 import "./navbar.css";
 import { Banner, Icon } from "./imports";
 import { VscMenu } from "react-icons/vsc";
 import { RxCross1 } from "react-icons/rx";
 import { FiShoppingCart } from "react-icons/fi";
-import { MdOutlineDiscount } from "react-icons/md";
+import { AiFillThunderbolt } from "react-icons/ai";
+import { AiOutlineHome } from "react-icons/ai";
 import { MdHistory } from "react-icons/md";
 import { MdOutlineCategory } from "react-icons/md";
 import { MdHelpOutline } from "react-icons/md";
@@ -15,7 +15,7 @@ import jwt_decode from "jwt-decode";
 
 const MenuCategories = () => (
   <>
-    <MdOutlineCategory className="nav-icons" color="#000" size="1.75rem" />
+    <AiOutlineHome className="nav-icons" color="#000" size="1.75rem" />
     <p>
       <Link to="/">Home</Link>
     </p>
@@ -24,9 +24,9 @@ const MenuCategories = () => (
 
 const MenuOnSale = () => (
   <>
-    <MdOutlineDiscount className="nav-icons" color="#000" size="1.75rem" />
+    <AiFillThunderbolt className="nav-icons" color="#000" size="1.75rem" />
     <p>
-      <a href="">On sale</a>
+    <Link to="/popularitems">Popular</Link>
     </p>
   </>
 );

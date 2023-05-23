@@ -13,26 +13,49 @@ import {
   ItemCard,
   SignUp,
   Login,
-  NotFound
+  NotFound,
+  Popular,
 } from "./components";
 
 export function App() {
-  const user = localStorage.getItem('token')
+  const user = localStorage.getItem("token");
   return (
     <>
       <Navbar />
-      {user && <Header/>}
+      {user && <Header />}
 
       <Routes>
         <Route path="/" element={<Main />}>
           <Route path="/items/:id" element={<ItemDetails />} />
         </Route>
-        <Route path="/createitem" element={user ? <Createitem/> : <Navigate to='/'/>} />
-        <Route path="/deleteitem" element={user ? <DeleteItem/> : <Navigate to='/'/>} />
-        <Route path="/updateitem" element={user ? <UpdateItem/> : <Navigate to='/'/>} />
-        {<Route path="/signup" element={user ? <Navigate to= '/'/> : <SignUp />} />}
-        {<Route path="/login" element={user ? <Navigate to= '/'/> : <Login /> } />}
-        <Route path="*" element={<NotFound/>} />
+        <Route path="/popularitems" element={<Popular />}>
+          <Route path="/popularitems/:id" element={<ItemDetails />} />
+        </Route>
+        <Route
+          path="/createitem"
+          element={user ? <Createitem /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/deleteitem"
+          element={user ? <DeleteItem /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/updateitem"
+          element={user ? <UpdateItem /> : <Navigate to="/" />}
+        />
+        {
+          <Route
+            path="/signup"
+            element={user ? <Navigate to="/" /> : <SignUp />}
+          />
+        }
+        {
+          <Route
+            path="/login"
+            element={user ? <Navigate to="/" /> : <Login />}
+          />
+        }
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
