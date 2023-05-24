@@ -4,6 +4,7 @@ import GetItems from "../Items/getItems";
 import getItemById from "../Items/getItemById";
 import ItemDetails from "./ItemDetails";
 import LoadingAnim from "./LoadingAnim";
+import PriceFilter from "./PriceFilter";
 import ItemCard from "./ItemCard";
 import CategoryFilter from "./CategoryFilter";
 import CategoryModel from "./CategoryModel";
@@ -11,14 +12,24 @@ import SortOptions from "./SortOptions";
 import { Link, useParams } from "react-router-dom";
 
 const Main = () => {
-  const { productsArray, autoUpdateSort, queryPages, queryTotalPages } =
-    GetItems();
+  const {
+    productsArray,
+    autoUpdateSort,
+    queryPages,
+    queryTotalPages,
+    maximumPrice,
+    minimumPrice,
+  } = GetItems();
   const { item } = getItemById();
   const [sortField, setSortField] = useState("date");
   const [sortOrder, setSortOrder] = useState("desc");
   const [sortCategory, setSortCategory] = useState("");
   const [categoryText, setCategoryText] = useState("");
   const [page, setPage] = useState(1);
+  const [price, setPrice] = useState(0);
+  const [priceValue, setPriceValue] = useState(0)
+  const [minPrice, setMinPrice] = useState(minimumPrice)
+  const [maxPrice, setMaxPrice] = useState(maximumPrice)
   const [limit, setLimit] = useState("");
   const [rightClick, setRightClick] = useState(false);
   const [leftClick, setLeftClick] = useState(false);
@@ -33,8 +44,10 @@ const Main = () => {
       category: sortCategory,
       page: page,
       limit: limit,
+      minprice: minPrice,
+      maxprice: maxPrice
     });
-  }, [sortField, sortOrder, sortCategory, page]);
+  }, [sortField, sortOrder, sortCategory, page, minPrice, maxPrice]);
 
   const handleSortOrderChange = (sortField, sortOrder) => {
     setSortField(sortField);
@@ -54,11 +67,33 @@ const Main = () => {
     }
   }, [sortField, sortOrder]);
 
+  const handleMinPriceChange = (minPriceChange) => {
+    setMinPrice(minPriceChange);
+    
+  }
+
+  const handleMaxPriceChange = (maxPriceChange) => {
+    setMaxPrice(maxPriceChange)
+    
+  }
+
+  useEffect(() => {
+    console.log('Max price:', maxPrice)
+    console.log('Min price:', minPrice)
+  }, [maxPrice, minPrice])
+
+  const handlePriceChange = (onPriceChange) => {
+    setPrice(onPriceChange);
+  };
+
+  const handlePriceSubmit = (onPriceSubmit) => {
+    setPriceValue(onPriceSubmit)
+  }
+
   const handleCategoryChange = (selectedCategory) => {
-    //!
     setCategoryVisible(true);
     setSortCategory(selectedCategory);
-    setLimit(20);
+    setLimit(5);
     setPage(1);
   };
 
@@ -130,9 +165,9 @@ const Main = () => {
     setRightClick(false);
   };
 
-  // if (productsArray.length === 0) {
-  //   return <LoadingAnim />;
-  // }
+  //! if (productsArray.length === 0) { !This is an animation that i should fix.
+  // !  return <LoadingAnim />;
+  // !}
 
   if (!id) {
     return (
@@ -147,6 +182,15 @@ const Main = () => {
           />
           <div className="main-items">
             <div className="main-sidebar">
+              <PriceFilter
+                // onPriceChange={handlePriceChange}
+                // onPriceSubmit={handlePriceSubmit}
+                minPriceChange={handleMinPriceChange}
+                maxPriceChange={handleMaxPriceChange}
+                price={price}
+                maximumPrice={maximumPrice}
+                minimumPrice={minimumPrice}
+              />
               <CategoryModel
                 sortCategory={sortCategory}
                 categoryVisible={categoryVisible}
@@ -155,6 +199,11 @@ const Main = () => {
               <CategoryFilter onCategoryChange={handleCategoryChange} />
             </div>
             <div className="main-items_items">
+              {!queryPages && (
+                <div className="main-items">
+                  Sorry, but there are no items that match your filter criteria.
+                </div>
+              )}
               {productsArray.map((product) => (
                 <Link key={product._id} to={`items/${product._id}`}>
                   <ItemCard key={product._id} item={product} />

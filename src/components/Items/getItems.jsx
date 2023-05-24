@@ -9,17 +9,21 @@ const GetItems = () => {
   const [queryPages, setQueryPages] = useState("");
   const [totalItems, setTotalItems] = useState("");
   const [queryTotalPages, setQueryTotalPages] = useState("");
+  const [minimumPrice, setMinimumPrice] = useState("");
+  const [maximumPrice, setMaximumPrice] = useState("");
   const [sort, setSort] = useState({
     sort: "date",
     order: "desc",
     category: "",
     limit: "",
     page: "",
+    minprice: "",
+    maxprice: "0",
   }); //? default values when loading the page
   const controller = new AbortController();
-  const location = useLocation()
-  const url = location.pathname
-  const navigate = useNavigate()
+  const location = useLocation();
+  const url = location.pathname;
+  const navigate = useNavigate();
 
   useEffect(() => {
     //? ITEMS DIVIDED BY PAGE
@@ -29,18 +33,18 @@ const GetItems = () => {
         setProducts([]);
         setPages("");
         setTotalItems("");
-        const url = `/items?sortOrder=${sort.order}&sortField=${sort.sort}&limit=${sort.limit}&page=${sort.page}&category=${sort.category}`;
-        await axios
-          .get(url, { signal: controller.signal })
-          .then(
-            (response) => {
-              setProducts(response.data.items),
-              setPages(response.data.totalPages),
-              setQueryPages(response.data.queryTotal),
-              setTotalItems(response.data.total),
-              setQueryTotalPages(response.data.queryTotalPages)
-            }
-          );
+        // &maxprice=${sort.maxprice}
+        const url = `/items?sortOrder=${sort.order}&sortField=${sort.sort}&limit=${sort.limit}&page=${sort.page}&category=${sort.category}&minprice=${sort.minprice}&maxprice=${sort.maxprice}`;
+        await axios.get(url, { signal: controller.signal }).then((response) => {
+          setProducts(response.data.items),
+            setPages(response.data.totalPages),
+            setQueryPages(response.data.queryTotal),
+            setTotalItems(response.data.total),
+            setQueryTotalPages(response.data.queryTotalPages);
+            setMaximumPrice(response.data.highestPrice);
+            setMinimumPrice(response.data.lowestPrice);
+        });
+        // console.log(url)
       }
     };
 
@@ -108,6 +112,8 @@ const GetItems = () => {
     allProducts,
     queryTotalPages,
     queryPages,
+    minimumPrice,
+    maximumPrice,
   };
 };
 
