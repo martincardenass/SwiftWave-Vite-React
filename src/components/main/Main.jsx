@@ -77,10 +77,10 @@ const Main = () => {
     
   }
 
-  useEffect(() => {
-    console.log('Max price:', maxPrice)
-    console.log('Min price:', minPrice)
-  }, [maxPrice, minPrice])
+  // useEffect(() => {
+  //   console.log('Max price:', maxPrice)
+  //   console.log('Min price:', minPrice)
+  // }, [maxPrice, minPrice])
 
   const handlePriceChange = (onPriceChange) => {
     setPrice(onPriceChange);

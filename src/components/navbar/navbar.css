@@ -152,6 +152,16 @@
     cursor: pointer;
 }
 
+.shoppingcart {
+    color: white;
+    font-size: 1.5rem;
+}
+
+.shoppingcart:hover {
+    color: #08f;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 1050px) {
     .nav {
         padding: 0 1rem 0 0;

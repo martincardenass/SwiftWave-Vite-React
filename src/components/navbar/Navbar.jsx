@@ -3,7 +3,7 @@ import "./navbar.css";
 import { Banner, Icon } from "./imports";
 import { VscMenu } from "react-icons/vsc";
 import { RxCross1 } from "react-icons/rx";
-import { FiShoppingCart } from "react-icons/fi";
+import { FaShoppingCart } from "react-icons/fa";
 import { AiFillThunderbolt } from "react-icons/ai";
 import { AiOutlineHome } from "react-icons/ai";
 import { MdHistory } from "react-icons/md";
@@ -35,7 +35,7 @@ const MenuHistory = () => (
   <>
     <MdHistory className="nav-icons" color="#000" size="1.75rem" />
     <p>
-      <a href="">History</a>
+      <a href="">Liked</a>
     </p>
   </>
 );
@@ -62,7 +62,7 @@ const NavBarItems = [
   <MenuCategories key={0} />,
   <MenuOnSale key={1} />,
   <MenuHistory key={2} />,
-  <MenuSellWithUs key={3} />,
+  // <MenuSellWithUs key={3} />,
   <MenuHelp key={4} />,
 ];
 
@@ -155,6 +155,9 @@ const Navbar = () => {
             <Login />
           </div>
         )}
+        <Link to="/cart">
+          <FaShoppingCart className="shoppingcart" />
+        </Link>
       </div>
       {toggle && (
         <div className="nav-phone">
@@ -165,7 +168,12 @@ const Navbar = () => {
                 {username ? (
                   <div className="nav-phone_user-text">
                     <p>Welcome, {username}</p>
-                    <p style={{color: 'black', cursor: 'pointer'}} onClick={handleLogout}>Logout</p>
+                    <p
+                      style={{ color: "black", cursor: "pointer" }}
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </p>
                   </div>
                 ) : (
                   <div className="nav-phone_user-text">

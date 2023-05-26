@@ -3,14 +3,17 @@ import "./main.css";
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 import { AiFillThunderbolt } from "react-icons/ai";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { useCart } from "../../hooks/useCart";
 
 const ItemDetails = ({ item }) => {
+  const { addToCart, cart, clearCart } = useCart();
   const [count, setCount] = useState(1);
   const [isClicked, setIsClicked] = useState(false);
   const [likeText, setLikeText] = useState("Like");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  // console.log(cart)
 
   const handleClick = () => {
     setIsClicked(!isClicked);
@@ -18,8 +21,8 @@ const ItemDetails = ({ item }) => {
   };
 
   const handleReturn = () => {
-    navigate('/') //!This will navigate back home
-  }
+    navigate("/"); //!This will navigate back home
+  };
 
   return (
     <>
@@ -61,14 +64,18 @@ const ItemDetails = ({ item }) => {
                 <p key={5}>{item.amount || "undefined"} in stock</p>
               </div>
               <div className="item_btns">
-                <button>Purchaste now</button>
-                <button>Add to cart</button>
+                <button className="button1">Purchaste now</button>
+                <Link to="/cart">
+                  <button className="button2" onClick={() => addToCart(item)}>
+                    Add to cart
+                  </button>
+                </Link>
               </div>
               <p key={6}>{item.description}</p>
             </div>
             <div className="item_imgandfav" key={item.image}>
               <div className="flex">
-                <p onClick={handleReturn} >Back to all items</p>
+                <p onClick={handleReturn}>Back to all items</p>
                 <MdKeyboardArrowRight />
               </div>
               <img

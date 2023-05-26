@@ -175,7 +175,7 @@
     white-space: nowrap;
 }
 
-.item_btns button:first-child {
+.item_btns .button1 {
     cursor: pointer;
     background-color: #4db2ff;
     color: white;
@@ -186,7 +186,7 @@
 }
 
 
-.item_btns button:nth-child(2) {
+.item_btns .button2 {
     cursor: pointer;
     background-color: #d6d6d6;
     color: black;
