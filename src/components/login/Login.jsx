@@ -51,6 +51,10 @@ const SignUp = () => {
           <div className="signup-form-text">
             <h1>Welcome!</h1>
             <p>Sign In to your account</p>
+            <div style={{fontSize: '12px'}}>
+              <p>Default user:</p>
+              <p>user@email.com / user</p>
+            </div>
           </div>
           <form onSubmit={handleSubmit}>
             <div className="input-container">

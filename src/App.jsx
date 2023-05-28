@@ -11,20 +11,20 @@ import {
   DeleteItem,
   UpdateItem,
   ItemDetails,
-  ItemCard,
   SignUp,
   Login,
   NotFound,
   Popular,
   Cart,
+  Liked,
+  SearchResults,
 } from "./components";
 
 export function App() {
   const user = localStorage.getItem("token");
   return (
     <>
-    {/* Envolviendo esto en el contexto de CartProvider */}
-      <CartProvider> 
+      <CartProvider>
         <Navbar />
         {user && <Header />}
 
@@ -35,6 +35,8 @@ export function App() {
           <Route path="/popularitems" element={<Popular />}>
             <Route path="/popularitems/:id" element={<ItemDetails />} />
           </Route>
+          <Route path="/search/:id" element={<SearchResults />} />
+          <Route path="/liked" element={<Liked />} />
           <Route path="/cart" element={<Cart />} />
           <Route
             path="/createitem"

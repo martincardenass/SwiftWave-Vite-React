@@ -130,10 +130,12 @@
 }
 
 .nav input {
+    font-size: 14px;
     padding: .5rem 1rem !important;
     border: none !important;
     border-radius: 25px;
     background: #fff !important;
+    color: black;
 }
 
 .nav-usermenu {

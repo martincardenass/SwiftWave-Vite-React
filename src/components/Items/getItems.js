@@ -33,7 +33,6 @@ const GetItems = () => {
         setProducts([]);
         setPages("");
         setTotalItems("");
-        // &maxprice=${sort.maxprice}
         const url = `/items?sortOrder=${sort.order}&sortField=${sort.sort}&limit=${sort.limit}&page=${sort.page}&category=${sort.category}&minprice=${sort.minprice}&maxprice=${sort.maxprice}`;
         await axios.get(url, { signal: controller.signal }).then((response) => {
           setProducts(response.data.items),
@@ -41,17 +40,15 @@ const GetItems = () => {
             setQueryPages(response.data.queryTotal),
             setTotalItems(response.data.total),
             setQueryTotalPages(response.data.queryTotalPages);
-            setMaximumPrice(response.data.highestPrice);
-            setMinimumPrice(response.data.lowestPrice);
+          setMaximumPrice(response.data.highestPrice);
+          setMinimumPrice(response.data.lowestPrice);
         });
-        // console.log(url)
       }
     };
 
     getItemsByPage();
 
     return () => {
-      //?cleanup
       controller.abort(); //?If user makes another request before the next one is completed, it gets cancelled
     };
   }, [sort, url, navigate]);
@@ -81,13 +78,11 @@ const GetItems = () => {
     getAllItems();
 
     return () => {
-      //? cleanup
       controller.abort();
     };
   }, [url]);
 
   const mapItems = (items) => {
-    //?mapping the items to use outside of the component
     return items.map((item) => ({
       _id: item._id,
       title: item.title,
@@ -97,7 +92,7 @@ const GetItems = () => {
       category: item.category,
       amount: item.amount,
       isPopular: item.isPopular,
-      image: `http://localhost:3001/${item.image}`,
+      image: item.image,
     }));
   };
 

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { AiFillThunderbolt } from "react-icons/ai";
 import "../main/main.css";
+import "./popularitems.css";
 import axios from "axios";
 import ItemCard from "../main/ItemCard";
 import ItemDetails from "../main/ItemDetails";
@@ -34,26 +36,37 @@ const PopularItems = () => {
           category: item.category,
           amount: item.amount,
           isPopular: item.isPopular,
-          image: `http://localhost:3001/${item.image}`,
+          image: item.image,
         }))
       : [];
   };
 
   const myPopularItems = mapPopularItems(popularItems);
 
-  if (!id) { return (
-    <>
-      <div className="main-items">
-        <div className="main-items_items">
-          {myPopularItems.map((item) => (
-            <Link key={item._id} to={`${item._id}`}>
-              <ItemCard key={item._id} item={item} />
-            </Link>
-          ))}
+  if (!id) {
+    return (
+      <>
+        <div className="banner">
+          <div className="banner-icons">
+            <AiFillThunderbolt className="heart" />
+            <AiFillThunderbolt className="heart1" />
+          </div>
+          <div className="popular-header">
+            <h1>Most popular items</h1>
+          </div>
         </div>
-      </div>
-    </>
-  );}
+        <div className="main-items">
+          <div className="main-items_items">
+            {myPopularItems.map((item) => (
+              <Link key={item._id} to={`${item._id}`}>
+                <ItemCard key={item._id} item={item} />
+              </Link>
+            ))}
+          </div>
+        </div>
+      </>
+    );
+  }
 
   if (id) {
     return <ItemDetails item={item} />;

@@ -6,11 +6,10 @@ import { RxCross1 } from "react-icons/rx";
 import { FaShoppingCart } from "react-icons/fa";
 import { AiFillThunderbolt } from "react-icons/ai";
 import { AiOutlineHome } from "react-icons/ai";
-import { MdHistory } from "react-icons/md";
-import { MdOutlineCategory } from "react-icons/md";
+import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 import { MdHelpOutline } from "react-icons/md";
 import { MdDataExploration } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 const MenuCategories = () => (
@@ -26,16 +25,16 @@ const MenuOnSale = () => (
   <>
     <AiFillThunderbolt className="nav-icons" color="#000" size="1.75rem" />
     <p>
-    <Link to="/popularitems">Popular</Link>
+      <Link to="/popularitems">Popular</Link>
     </p>
   </>
 );
 
 const MenuHistory = () => (
   <>
-    <MdHistory className="nav-icons" color="#000" size="1.75rem" />
+    <IoHeartSharp className="nav-icons" color="#000" size="1.75rem" />
     <p>
-      <a href="">Liked</a>
+      <Link to="/liked">Liked</Link>
     </p>
   </>
 );
@@ -85,6 +84,7 @@ const Navbar = () => {
   );
   const [animation, setAnimation] = useState(false);
   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
   let username = "";
 
   if (token) {
@@ -125,6 +125,16 @@ const Navbar = () => {
       }
     });
   }, [animation]);
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      const search = e.target.value;
+      if (search.length > 0) {
+        navigate(`/search/${e.target.value}`);
+      }
+    }
+  };
+
   return (
     <>
       <div className="nav">
@@ -134,6 +144,7 @@ const Navbar = () => {
           id="nav-search"
           type="text"
           placeholder="Search for products..."
+          onKeyDown={handleKeyDown}
         />
         {menuIcon && (
           <>
