@@ -27,7 +27,6 @@ const Main = () => {
   const [categoryText, setCategoryText] = useState("");
   const [page, setPage] = useState(1);
   const [price, setPrice] = useState(0);
-  const [priceValue, setPriceValue] = useState(0)
   const [minPrice, setMinPrice] = useState(minimumPrice)
   const [maxPrice, setMaxPrice] = useState(maximumPrice)
   const [limit, setLimit] = useState("");
@@ -69,25 +68,10 @@ const Main = () => {
 
   const handleMinPriceChange = (minPriceChange) => {
     setMinPrice(minPriceChange);
-    
   }
 
   const handleMaxPriceChange = (maxPriceChange) => {
     setMaxPrice(maxPriceChange)
-    
-  }
-
-  // useEffect(() => {
-  //   console.log('Max price:', maxPrice)
-  //   console.log('Min price:', minPrice)
-  // }, [maxPrice, minPrice])
-
-  const handlePriceChange = (onPriceChange) => {
-    setPrice(onPriceChange);
-  };
-
-  const handlePriceSubmit = (onPriceSubmit) => {
-    setPriceValue(onPriceSubmit)
   }
 
   const handleCategoryChange = (selectedCategory) => {
@@ -183,8 +167,6 @@ const Main = () => {
           <div className="main-items">
             <div className="main-sidebar">
               <PriceFilter
-                // onPriceChange={handlePriceChange}
-                // onPriceSubmit={handlePriceSubmit}
                 minPriceChange={handleMinPriceChange}
                 maxPriceChange={handleMaxPriceChange}
                 price={price}

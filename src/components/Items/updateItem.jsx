@@ -208,7 +208,7 @@ const updateItem = () => {
                 key={product._id}
                 value={product._id}
                 data-id={product._id}
-                data-image={product.image}
+                data-image={`http://localhost:3001/${product.image}`}
                 data-title={product.title}
                 data-price={product.price}
                 data-description={product.description}

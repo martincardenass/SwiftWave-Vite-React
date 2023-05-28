@@ -67,7 +67,7 @@ const deleteItem = () => {
                     <option value='' disabled >Select...</option>
                     {allProducts.map(item => (
                     <option key={item._id} value={
-                        `${item._id}|${item.image}|${item.title}`
+                        `${item._id}|${`http://localhost:3001/${item.image}`}|${item.title}`
                     }>{item.title}</option>
                     ))}
                 </select>

@@ -7,6 +7,7 @@ import axios from "axios";
 import ItemCard from "../main/ItemCard";
 import ItemDetails from "../main/ItemDetails";
 import getItemById from "../Items/getItemById";
+import SortOptions from "../main/SortOptions";
 
 const PopularItems = () => {
   const [popularItems, setPopularItems] = useState([]);
@@ -55,13 +56,16 @@ const PopularItems = () => {
             <h1>Most popular items</h1>
           </div>
         </div>
-        <div className="main-items">
-          <div className="main-items_items">
-            {myPopularItems.map((item) => (
-              <Link key={item._id} to={`${item._id}`}>
-                <ItemCard key={item._id} item={item} />
-              </Link>
-            ))}
+        <div className="main">
+          <SortOptions />
+          <div className="main-items">
+            <div className="main-items_items">
+              {myPopularItems.map((item) => (
+                <Link key={item._id} to={`${item._id}`}>
+                  <ItemCard key={item._id} item={item} />
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </>
