@@ -10,49 +10,60 @@ import CategoryFilter from "./CategoryFilter";
 import CategoryModel from "./CategoryModel";
 import SortOptions from "./SortOptions";
 import { Link, useParams } from "react-router-dom";
+import { useFilter } from "../Items/sorting";
 
 const Main = () => {
   const {
+    filter,
+    sortField,
+    sortOrder,
+    sortCategory,
+    page,
+    minPrice,
+    maxPrice,
+    handleSortOrderChange,
+    handleMinPriceChange,
+    handleMaxPriceChange,
+    handleCategoryChange,
+    handleSortCategoryAbort,
+    limit,
+    categoryVisible,
+    handlePageChange,
+    autoUpdatePageQuery
+  } = useFilter();
+  const {
     productsArray,
-    autoUpdateSort,
+    autoUpdateFilter,
     queryPages,
     queryTotalPages,
     maximumPrice,
     minimumPrice,
   } = GetItems();
   const { item } = getItemById();
-  const [sortField, setSortField] = useState("date");
-  const [sortOrder, setSortOrder] = useState("desc");
-  const [sortCategory, setSortCategory] = useState("");
   const [categoryText, setCategoryText] = useState("");
-  const [page, setPage] = useState(1);
   const [price, setPrice] = useState(0);
-  const [minPrice, setMinPrice] = useState(minimumPrice)
-  const [maxPrice, setMaxPrice] = useState(maximumPrice)
-  const [limit, setLimit] = useState("");
   const [rightClick, setRightClick] = useState(false);
   const [leftClick, setLeftClick] = useState(false);
-  const [categoryVisible, setCategoryVisible] = useState(false);
   const listItems = [];
   const { id } = useParams();
 
   useEffect(() => {
-    autoUpdateSort({
+    autoUpdateFilter({
       sort: sortField,
       order: sortOrder,
       category: sortCategory,
       page: page,
       limit: limit,
       minprice: minPrice,
-      maxprice: maxPrice
+      maxprice: maxPrice,
     });
   }, [sortField, sortOrder, sortCategory, page, minPrice, maxPrice]);
 
-  const handleSortOrderChange = (sortField, sortOrder) => {
-    setSortField(sortField);
-    setSortOrder(sortOrder);
-    setPage(1);
-  };
+  useEffect(() => {
+    autoUpdatePageQuery({
+      queryTotalPages
+    })
+  }, [queryTotalPages])
 
   useEffect(() => {
     if (sortField === "price" && sortOrder === "asc") {
@@ -65,44 +76,6 @@ const Main = () => {
       setCategoryText("Newly added");
     }
   }, [sortField, sortOrder]);
-
-  const handleMinPriceChange = (minPriceChange) => {
-    setMinPrice(minPriceChange);
-  }
-
-  const handleMaxPriceChange = (maxPriceChange) => {
-    setMaxPrice(maxPriceChange)
-  }
-
-  const handleCategoryChange = (selectedCategory) => {
-    setCategoryVisible(true);
-    setSortCategory(selectedCategory);
-    setLimit(5);
-    setPage(1);
-  };
-
-  const handlePageChange = (e) => {
-    e.preventDefault();
-
-    let value = e.target.innerText;
-
-    setPage(e.target.value);
-
-    //*if value '«'
-    if (value === "«" && page > 1) {
-      setPage(page - 1);
-    } else if (value === "«" && page === 1) {
-      setPage(1);
-    }
-    //*if value '»'
-    if (value === "»" && page <= queryTotalPages - 1) {
-      setPage(page + 1);
-    }
-
-    if (value === "»" && page === queryTotalPages) {
-      setPage(queryTotalPages);
-    }
-  };
 
   for (let i = 1; i <= queryTotalPages; i++) {
     if (i > 5) {
@@ -127,12 +100,6 @@ const Main = () => {
     }
   }
 
-  const handleSortCategoryAbort = (categoryAbort) => {
-    setSortCategory(categoryAbort);
-    setCategoryVisible(false);
-    setPage(1);
-  };
-
   const handleLeftClick = () => {
     setLeftClick(true);
   };
@@ -154,7 +121,7 @@ const Main = () => {
   // !}
 
   if (!id) {
-    return (
+    return { queryTotalPages},(
       //?default
       <>
         <div className="main">

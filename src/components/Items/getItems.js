@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useFilter } from "./sorting";
 
 const GetItems = () => {
   const [products, setProducts] = useState([]);
@@ -11,19 +12,11 @@ const GetItems = () => {
   const [queryTotalPages, setQueryTotalPages] = useState("");
   const [minimumPrice, setMinimumPrice] = useState("");
   const [maximumPrice, setMaximumPrice] = useState("");
-  const [sort, setSort] = useState({
-    sort: "date",
-    order: "desc",
-    category: "",
-    limit: "",
-    page: "",
-    minprice: "",
-    maxprice: "0",
-  }); //? default values when loading the page
   const controller = new AbortController();
   const location = useLocation();
   const url = location.pathname;
   const navigate = useNavigate();
+  const { filter, autoUpdateFilter } = useFilter();
 
   useEffect(() => {
     //? ITEMS DIVIDED BY PAGE
@@ -33,7 +26,7 @@ const GetItems = () => {
         setProducts([]);
         setPages("");
         setTotalItems("");
-        const url = `/items?sortOrder=${sort.order}&sortField=${sort.sort}&limit=${sort.limit}&page=${sort.page}&category=${sort.category}&minprice=${sort.minprice}&maxprice=${sort.maxprice}`;
+        const url = `/items?sortOrder=${filter.order}&sortField=${filter.sort}&limit=${filter.limit}&page=${filter.page}&category=${filter.category}&minprice=${filter.minprice}&maxprice=${filter.maxprice}`;
         await axios.get(url, { signal: controller.signal }).then((response) => {
           setProducts(response.data.items),
             setPages(response.data.totalPages),
@@ -51,11 +44,7 @@ const GetItems = () => {
     return () => {
       controller.abort(); //?If user makes another request before the next one is completed, it gets cancelled
     };
-  }, [sort, url, navigate]);
-
-  const autoUpdateSort = (newSort) => {
-    setSort(newSort);
-  };
+  }, [filter, url, navigate]);
 
   useEffect(() => {
     //!Might optimize this
@@ -101,7 +90,7 @@ const GetItems = () => {
 
   return {
     productsArray,
-    autoUpdateSort,
+    autoUpdateFilter,
     pages,
     totalItems,
     allProducts,

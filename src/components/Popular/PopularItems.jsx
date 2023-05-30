@@ -8,23 +8,27 @@ import ItemCard from "../main/ItemCard";
 import ItemDetails from "../main/ItemDetails";
 import getItemById from "../Items/getItemById";
 import SortOptions from "../main/SortOptions";
+import { useFilter } from "../Items/sorting";
 
 const PopularItems = () => {
   const [popularItems, setPopularItems] = useState([]);
+  const { filter, autoUpdateFilter } = useFilter();
   const { item } = getItemById();
   const { id } = useParams();
 
   useEffect(() => {
     const getPopularItems = async () => {
       setPopularItems([]);
-      const url = "/items/popular";
+      const url = `/items/popular?sortOrder=${filter.order}&sortField=${filter.sort}`; //^ sadly, it cannot be in multiple lines.
       await axios.get(url).then((response) => {
         setPopularItems(response.data.items);
       });
     };
 
     getPopularItems();
-  }, []);
+  }, [filter]);
+
+  useEffect(() => {});
 
   const mapPopularItems = (items) => {
     return Array.isArray(items)
