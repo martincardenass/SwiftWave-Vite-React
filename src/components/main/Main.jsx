@@ -7,7 +7,7 @@ import LoadingAnim from "./LoadingAnim";
 import PriceFilter from "./PriceFilter";
 import ItemCard from "./ItemCard";
 import CategoryFilter from "./CategoryFilter";
-import CategoryModel from "./CategoryModel";
+// import CategoryModel from "./CategoryModel";
 import SortOptions from "./SortOptions";
 import { Link, useParams } from "react-router-dom";
 import { useFilter } from "../../hooks/filtering";
@@ -32,7 +32,7 @@ const Main = () => {
     handleSortCategoryAbort,
     limit,
     categoryVisible,
-    handleCategoryChange
+    handleCategoryChange,
   } = usePagination();
   const {
     filter,
@@ -40,7 +40,6 @@ const Main = () => {
     maxPrice,
     handleMinPriceChange,
     handleMaxPriceChange,
-    // handleCategoryChange,
   } = useFilter();
   const {
     productsArray,
@@ -95,39 +94,38 @@ const Main = () => {
         //?default
         <>
           <div className="main">
-            <SortOptions
-              sortField={sortField}
-              sortOrder={sortOrder}
-              onSortChange={handleSortOrderChange}
-            />
             <div className="main-items">
-              <div className="main-sidebar">
-                <PriceFilter
-                  minPriceChange={handleMinPriceChange}
-                  maxPriceChange={handleMaxPriceChange}
-                  price={price}
-                  maximumPrice={maximumPrice}
-                  minimumPrice={minimumPrice}
-                />
-                <CategoryModel
-                  sortCategory={sortCategory}
-                  categoryVisible={categoryVisible}
-                  onCategoryAbort={handleSortCategoryAbort}
-                />
-                <CategoryFilter onCategoryChange={handleCategoryChange} />
-              </div>
-              <div className="main-items_items">
-                {!queryPages && (
-                  <div className="main-items">
-                    Sorry, but there are no items that match your filter
-                    criteria.
-                  </div>
-                )}
-                {productsArray.map((product) => (
-                  <Link key={product._id} to={`items/${product._id}`}>
-                    <ItemCard key={product._id} item={product} />
-                  </Link>
-                ))}
+              <SortOptions
+                sortField={sortField}
+                sortOrder={sortOrder}
+                onSortChange={handleSortOrderChange}
+                sortCategory={sortCategory}
+                onCategoryAbort={handleSortCategoryAbort}
+              />
+              <div className="main-teims_content">
+                <div className="main-sidebar">
+                  <PriceFilter
+                    minPriceChange={handleMinPriceChange}
+                    maxPriceChange={handleMaxPriceChange}
+                    price={price}
+                    maximumPrice={maximumPrice}
+                    minimumPrice={minimumPrice}
+                  />
+                  <CategoryFilter onCategoryChange={handleCategoryChange} />
+                </div>
+                <div className="main-items_items">
+                  {!queryPages && (
+                    <div className="noitems">
+                      Sorry, but there are no items that match your filter
+                      criteria.
+                    </div>
+                  )}
+                  {productsArray.map((product) => (
+                    <Link key={product._id} to={`items/${product._id}`}>
+                      <ItemCard key={product._id} item={product} />
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
             <div className="query">

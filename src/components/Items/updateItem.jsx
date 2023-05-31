@@ -109,7 +109,9 @@ const updateItem = () => {
                         PC Parts and Hardware
                       </option>
                       <option value="Video Games">Video Games</option>
-                      <option value="Video Game Consoles">Video Games Consoles</option>
+                      <option value="Video Game Consoles">
+                        Video Games Consoles
+                      </option>
                       <option value="Cell Phones">Cell Phones</option>
                       <option value="Television and Video">
                         Television and video
@@ -199,9 +201,14 @@ const updateItem = () => {
     <div className="manage-item">
       <h1>Update Item</h1>
       <div className="manage-item_content">
-        <form onSubmit={handleSubmit}>
-          <select ref={selectRef} defaultValue="" onChange={handleChange}>
-            <option value="" disabled>
+        <form style={{ width: "250px" }} onSubmit={handleSubmit}>
+          <select
+            style={{ width: "250px" }}
+            ref={selectRef}
+            defaultValue=""
+            onChange={handleChange}
+          >
+            <option style={{ width: "250px" }} value="" disabled>
               Select...
             </option>
             {allProducts.map((product) => (
