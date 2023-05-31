@@ -8,27 +8,61 @@ import ItemCard from "../main/ItemCard";
 import ItemDetails from "../main/ItemDetails";
 import getItemById from "../Items/getItemById";
 import SortOptions from "../main/SortOptions";
-import { useFilter } from "../Items/sorting";
+import { useFilter } from "../../hooks/filtering";
+import { usePagination } from "../../hooks/pagination";
 
 const PopularItems = () => {
-  const [popularItems, setPopularItems] = useState([]);
-  const { filter, autoUpdateFilter } = useFilter();
+  const {
+    autoUpdatePageQuery,
+    handlePageChange,
+    handleLeftClick,
+    handleLeftRelease,
+    handleRightClick,
+    handleRightRelease,
+    page,
+    listItems,
+    leftClick,
+    rightClick,
+    sortField,
+    sortOrder,
+    handleSortOrderChange,
+  } = usePagination();
+  const {
+    filter,
+    autoUpdateFilter,
+  } = useFilter();
   const { item } = getItemById();
   const { id } = useParams();
+  const [popularItems, setPopularItems] = useState([]);
+  const [queryTotalPages, setQueryTotalPages] = useState([]);
+
+  useEffect(() => {
+    autoUpdateFilter({
+      sort: sortField,
+      order: sortOrder,
+      page: page,
+    });
+  }, [sortField, sortOrder, page]);
+
+  useEffect(() => {
+    autoUpdatePageQuery({
+      queryTotalPages,
+    });
+  }, [queryTotalPages]);
+
 
   useEffect(() => {
     const getPopularItems = async () => {
       setPopularItems([]);
-      const url = `/items/popular?sortOrder=${filter.order}&sortField=${filter.sort}`; //^ sadly, it cannot be in multiple lines.
+      const url = `/items/popular?sortOrder=${filter.order}&sortField=${filter.sort}&page=${filter.page}`; //^ sadly, it cannot be in multiple lines.
       await axios.get(url).then((response) => {
         setPopularItems(response.data.items);
+        setQueryTotalPages(response.data.queryTotalPages)
       });
     };
 
     getPopularItems();
   }, [filter]);
-
-  useEffect(() => {});
 
   const mapPopularItems = (items) => {
     return Array.isArray(items)
@@ -61,7 +95,11 @@ const PopularItems = () => {
           </div>
         </div>
         <div className="main">
-          <SortOptions />
+          <SortOptions
+            sortField={sortField}
+            sortOrder={sortOrder}
+            onSortChange={handleSortOrderChange}
+          />
           <div className="main-items">
             <div className="main-items_items">
               {myPopularItems.map((item) => (
@@ -71,6 +109,29 @@ const PopularItems = () => {
               ))}
             </div>
           </div>
+          <nav>
+            <ul className="pagination">
+              <li
+                onClick={handlePageChange}
+                onMouseDown={handleLeftClick}
+                onMouseLeave={handleLeftRelease}
+                onMouseUp={handleLeftRelease}
+                className={leftClick ? "selected" : ""}
+              >
+                <a href="">«</a>
+              </li>
+              {listItems}
+              <li
+                onClick={handlePageChange}
+                onMouseDown={handleRightClick}
+                onMouseLeave={handleRightRelease}
+                onMouseUp={handleRightRelease}
+                className={rightClick ? "selected" : ""}
+              >
+                <a href="">»</a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </>
     );

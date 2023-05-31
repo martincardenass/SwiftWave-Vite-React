@@ -145,7 +145,7 @@
     max-width: 500px;
     height: 500px;
     max-width: 500px;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .item_details-cnt {
@@ -256,6 +256,15 @@
     justify-content: center;
 }
 
+.main-items_items h2 {
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 250px;
+    text-align: center;
+}
+
 .main-items li {
     display: flex;
     flex-direction: column;
@@ -285,7 +294,7 @@
 }
 
 .main-items img {
-    object-fit: cover;
+    object-fit: contain;
     cursor: pointer;
     width: 250px;
     height: 250px;
@@ -294,7 +303,7 @@
 
 .main_content h2 {
     cursor: pointer;
-    font-size: 28px;
+    font-size: 20px;
 }
 
 .main_content p {

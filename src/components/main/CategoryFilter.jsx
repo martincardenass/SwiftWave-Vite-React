@@ -30,8 +30,14 @@ const CategoryFilter = ({ onCategoryChange }) => {
           </p>
           <p>
             <label>
-              Video Games
+              Games
               <input type="radio" name="category" value="Video Games" hidden />
+            </label>
+          </p>
+          <p>
+            <label>
+              Video Game Consoles
+              <input type="radio" name="category" value="Video Game Consoles" hidden />
             </label>
           </p>
           <p>

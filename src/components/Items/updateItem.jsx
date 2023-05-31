@@ -109,6 +109,7 @@ const updateItem = () => {
                         PC Parts and Hardware
                       </option>
                       <option value="Video Games">Video Games</option>
+                      <option value="Video Game Consoles">Video Games Consoles</option>
                       <option value="Cell Phones">Cell Phones</option>
                       <option value="Television and Video">
                         Television and video

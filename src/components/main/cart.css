@@ -46,7 +46,7 @@
 .cart_item-content img {
     width: 200px;
     height: 200px;
-    object-fit: cover !important;
+    object-fit: contain !important;
 }
 
 .cart_item ul {
@@ -59,7 +59,7 @@
 }
 
 .cart_item h2 {
-    font-size: 40px;
+    font-size: 20px;
 }
 
 .cart_item p {
