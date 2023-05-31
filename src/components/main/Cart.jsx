@@ -16,7 +16,6 @@ const Cart = () => {
       <div className="cart">
         <div className="cart-container">
           <h1>Your cart is empty.</h1>
-          {/* <h2>Start shopping.</h2> */}
         </div>
       </div>
     );

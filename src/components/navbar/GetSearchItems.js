@@ -13,15 +13,14 @@ export const useFetchRequest = () => {
 
   useEffect(() => {
     const fetchRequest = async (e) => {
-      // if (url === `/search/${id}`) {
+      if (url === `/search/${id}`) {
         setSearchResults([]);
-        // ?search=item&sortField=date&sortOrder=desc
         const url = `/items/all?search=${id}&sortOrder=${filter.order}&sortField=${filter.sort}`;
         await axios.get(url).then((response) => {
           setSearchResults(response.data.items);
           setSearchResultsTotal(response.data.total);
         });
-      // }
+      }
     };
     fetchRequest();
   }, [filter, url]);

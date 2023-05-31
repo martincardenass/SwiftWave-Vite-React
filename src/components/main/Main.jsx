@@ -32,6 +32,7 @@ const Main = () => {
     handleSortCategoryAbort,
     limit,
     categoryVisible,
+    handleCategoryChange
   } = usePagination();
   const {
     filter,
@@ -39,7 +40,7 @@ const Main = () => {
     maxPrice,
     handleMinPriceChange,
     handleMaxPriceChange,
-    handleCategoryChange,
+    // handleCategoryChange,
   } = useFilter();
   const {
     productsArray,
