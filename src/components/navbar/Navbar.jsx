@@ -6,7 +6,7 @@ import { RxCross1 } from "react-icons/rx";
 import { FaShoppingCart } from "react-icons/fa";
 import { AiFillThunderbolt } from "react-icons/ai";
 import { AiOutlineHome } from "react-icons/ai";
-import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
+import { IoHeartSharp } from "react-icons/io5";
 import { MdHelpOutline } from "react-icons/md";
 import { MdDataExploration } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";

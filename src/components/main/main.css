@@ -255,13 +255,6 @@
     margin-right: auto;
 }
 
-.loading {
-    padding: 20rem;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-}
-
 .main-items {
     display: block;
 }
@@ -300,7 +293,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: .5rem;
     background: white;
     list-style: none;
     padding: 1rem;
@@ -476,54 +468,3 @@ nav {
     background-color: #333333;
     color: white !important;
 }
-
-/**
- * ==============================================
- * Dot Flashing = https://codepen.io/nzbin/pen/GGrXbp
- * ==============================================
- */
-.dot-flashing {
-    position: relative;
-    width: 10px;
-    height: 10px;
-    border-radius: 5px;
-    background-color: black;
-    color: black;
-    animation: dot-flashing 1s infinite linear alternate;
-    animation-delay: 0.5s;
-  }
-  .dot-flashing::before, .dot-flashing::after {
-    content: "";
-    display: inline-block;
-    position: absolute;
-    top: 0;
-  }
-  .dot-flashing::before {
-    left: -15px;
-    width: 10px;
-    height: 10px;
-    border-radius: 5px;
-    background-color: black;
-    color: black;
-    animation: dot-flashing 1s infinite alternate;
-    animation-delay: 0s;
-  }
-  .dot-flashing::after {
-    left: 15px;
-    width: 10px;
-    height: 10px;
-    border-radius: 5px;
-    background-color: black;
-    color: black;
-    animation: dot-flashing 1s infinite alternate;
-    animation-delay: 1s;
-  }
-  
-  @keyframes dot-flashing {
-    0% {
-      background-color: black;
-    }
-    50%, 100% {
-      background-color: rgba(0, 0, 0, 0.2);
-    }
-  }

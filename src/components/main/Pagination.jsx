@@ -1,21 +1,18 @@
 import React from "react";
 
 const Pagination = ({
-  page,
   onLeftClick,
   onRightClick,
   onLeftClickRelease,
   onRightClickRelease,
   onPageChange,
-  listItems
+  listItems,
 }) => {
-
   const handlePageChange = (e) => {
     e.preventDefault();
     const selectedInnerText = e.target.innerText;
-    const selectedValue = e.target.value
+    const selectedValue = e.target.value;
     onPageChange(selectedInnerText, selectedValue);
-    
   };
 
   const handleLeftClick = () => {

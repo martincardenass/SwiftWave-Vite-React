@@ -4,7 +4,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { useFilter } from "../../hooks/filtering";
 
 export const useFetchRequest = () => {
-  const { filter, autoUpdateFilter } = useFilter()
+  const { filter, autoUpdateFilter } = useFilter();
   const [searchResults, setSearchResults] = useState([]);
   const [searchResultsTotal, setSearchResultsTotal] = useState("");
   const { id } = useParams();
@@ -12,7 +12,7 @@ export const useFetchRequest = () => {
   const url = location.pathname;
 
   useEffect(() => {
-    const fetchRequest = async (e) => {
+    const fetchRequest = async () => {
       if (url === `/search/${id}`) {
         setSearchResults([]);
         const url = `/items/all?search=${id}&sortOrder=${filter.order}&sortField=${filter.sort}`;
@@ -28,6 +28,6 @@ export const useFetchRequest = () => {
   return {
     searchResults,
     searchResultsTotal,
-    autoUpdateFilter
+    autoUpdateFilter,
   };
 };

@@ -6,7 +6,7 @@ const SortOptions = ({
   categoryText,
   onSortChange,
   sortCategory,
-  onCategoryAbort
+  onCategoryAbort,
 }) => {
   const handleSortOrderChange = (e) => {
     const value = e.target.value;
@@ -27,7 +27,13 @@ const SortOptions = ({
           {sortCategory && (
             <p>
               Showing only items with category: {sortCategory}.
-              <span className="removecategory" onClick={handleSortCategoryAbort}> Back to all items</span>
+              <span
+                className="removecategory"
+                onClick={handleSortCategoryAbort}
+              >
+                {" "}
+                Back to all items
+              </span>
             </p>
           )}
         </div>

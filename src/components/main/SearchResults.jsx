@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import ItemCard from "./ItemCard";
 import SortOptions from "./SortOptions";
 import "./main.css";
@@ -8,7 +8,8 @@ import { usePagination } from "../../hooks/pagination";
 
 const SearchResults = () => {
   const { sortField, sortOrder, handleSortOrderChange } = usePagination();
-  const { searchResults, searchResultsTotal, autoUpdateFilter } = useFetchRequest();
+  const { searchResults, searchResultsTotal, autoUpdateFilter } =
+    useFetchRequest();
 
   useEffect(() => {
     autoUpdateFilter({
@@ -16,7 +17,7 @@ const SearchResults = () => {
       order: sortOrder,
     });
   }, [sortField, sortOrder]);
-  
+
   return (
     <>
       {!searchResultsTotal && (

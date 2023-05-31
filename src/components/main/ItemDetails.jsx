@@ -13,15 +13,13 @@ const ItemDetails = ({ item }) => {
   const [likeText, setLikeText] = useState("Like");
   const navigate = useNavigate();
 
-  // console.log(cart)
-
   const handleClick = () => {
     setIsClicked(!isClicked);
     setLikeText(isClicked ? ":(" : "Liked!");
   };
 
   const handleReturn = () => {
-    navigate("/"); //!This will navigate back home
+    navigate("/");
   };
 
   return (
