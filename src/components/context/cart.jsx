@@ -4,13 +4,14 @@ export const CartContext = createContext();
 
 export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
+  const [count, setCount] = useState(1);
 
   const addToCart = (itemCart) => {
     const itemId = cart.findIndex((item) => item._id === itemCart._id);
 
     if (itemId !== -1) {
       const newCart = structuredClone(cart);
-      newCart[itemId].quantity += 1;
+      newCart[itemId].quantity += Number(count);
       return setCart(newCart);
     }
 
@@ -18,7 +19,7 @@ export function CartProvider({ children }) {
       ...prevState,
       {
         ...itemCart,
-        quantity: 1,
+        quantity: Number(count),
       },
     ]);
   };
@@ -28,17 +29,19 @@ export function CartProvider({ children }) {
   };
 
   const removeFromCart = (_id) => {
-    const newCart = cart.filter(obj => obj._id !== _id);
+    const newCart = cart.filter((obj) => obj._id !== _id);
     setCart(newCart);
-  };  
+  };
 
   return (
     <CartContext.Provider
       value={{
         cart,
+        count,
+        setCount,
         addToCart,
         clearCart,
-        removeFromCart
+        removeFromCart,
       }}
     >
       {children}

@@ -27,7 +27,6 @@ const GetItems = () => {
         setPages("");
         setTotalItems("");
         const url = `/items?sortOrder=${filter.order}&sortField=${filter.sort}&limit=${filter.limit}&page=${filter.page}&category=${filter.category}&minprice=${filter.minprice}&maxprice=${filter.maxprice}`;
-        console.log(url)
         await axios.get(url, { signal: controller.signal }).then((response) => {
           setProducts(response.data.items),
             setPages(response.data.totalPages),

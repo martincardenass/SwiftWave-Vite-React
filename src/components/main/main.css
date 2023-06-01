@@ -268,15 +268,14 @@
 }
 
 .main-items_items {
-    width: 100%;
+    width: 95%;
     display: grid;
     grid-template-columns: repeat(
         auto-fit,
                 minmax(250px, 1fr)
     );
     gap: 2rem;
-    align-items: center;
-    justify-content: center;
+    margin: auto;
 }
 
 .main-items_items h2 {
@@ -289,6 +288,7 @@
 }
 
 .main-items li {
+    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -312,7 +312,8 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    display: flex;
+    /* padding: 1rem; */
+    /* display: flex; */
 }
 
 .main-items img {
@@ -439,6 +440,7 @@ nav {
     font-size: 16px;
     list-style: none;
     user-select: none;
+    margin-bottom: 30px;
 }
 
 .pagination a  {

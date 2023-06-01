@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./cart.css";
 import { useCart } from "../../hooks/useCart";
 import { Link } from "react-router-dom";
+import { CartContext } from "../context/cart";
 
 const Cart = () => {
+  const { count } = useContext(CartContext);
   const { cart, removeFromCart } = useCart();
   const [qty, setQty] = useState();
   const optionsList = [];
@@ -23,20 +25,15 @@ const Cart = () => {
 
   {
     cart.forEach((item) => {
-      for (let i = 0; i < item.amount; i++) {
+      for (let i = 1; i < item.amount + 1; i++) {
         optionsList.push(
-          <option value={i} key={i}>
+          <option value={i} key={`${item._id}-${i}`}>
             {i}
           </option>
         );
       }
     });
   }
-
-  const handleQtyChange = (e) => {
-    setQty(e.target.value);
-  };
-
   return (
     <>
       <div className="cart">
@@ -44,6 +41,7 @@ const Cart = () => {
           <div className="cart-container_headers">
             <h1>Your shopping cart</h1>
             <p>Price</p>
+            {/* {JSON.stringify(cart, null, 2)} */}
           </div>
           <div className="border" style={{ marginBottom: "20px" }}></div>
           <div className="cart_item">
@@ -62,8 +60,14 @@ const Cart = () => {
                     </Link>
                     <p>
                       Quantity:
-                      <select onChange={handleQtyChange}>
-                        {optionsList.slice(1, 11)}
+                      <select
+                        onChange={(e) => {
+                          item.quantity = e.target.value;
+                          setQty(e.target.value);
+                        }}
+                        value={item.quantity}
+                      >
+                        {optionsList}
                       </select>
                       <span
                         style={{
@@ -87,12 +91,12 @@ const Cart = () => {
             </ul>
           </div>
           <div className="border"></div>
-          <p className="subtotal">
+          <div className="subtotal">
             <div style={{ fontWeight: "bold", marginRight: "10px" }}>
               Subtotal:
             </div>
             ${totalPrice}
-          </p>
+          </div>
           {/* <button onClick={clearCart}>Clear cart</button> */}
         </div>
       </div>
