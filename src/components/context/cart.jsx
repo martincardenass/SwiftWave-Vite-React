@@ -1,10 +1,20 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+
+// export const CartStoredInLocalStorage = JSON.parse(localStorage.getItem('cart')) || []
 
 export const CartContext = createContext();
 
 export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [count, setCount] = useState(1);
+
+  // Load cart from localStorage on component mount
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem("cart"));
+    if (storedCart) {
+      setCart(storedCart);
+    }
+  }, []);
 
   const addToCart = (itemCart) => {
     const itemId = cart.findIndex((item) => item._id === itemCart._id);
@@ -23,6 +33,10 @@ export function CartProvider({ children }) {
       },
     ]);
   };
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   const clearCart = () => {
     setCart([]);

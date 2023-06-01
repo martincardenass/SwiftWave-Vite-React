@@ -65,10 +65,6 @@
     font-size: 20px;
 }
 
-.deleteitem {
-    cursor: pointer;
-}
-
 .deleteitem:hover {
     color: orange;
 }
@@ -85,4 +81,14 @@
     font-size: 20px;
     text-align: right;
     margin: .5rem;
+}
+
+.trashCartItem {
+    font-size: 2rem;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.titleanddelete {
+    display: flex;
 }

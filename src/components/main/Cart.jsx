@@ -3,6 +3,7 @@ import "./cart.css";
 import { useCart } from "../../hooks/useCart";
 import { Link } from "react-router-dom";
 import { CartContext } from "../context/cart";
+import { HiOutlineTrash } from "react-icons/hi";
 
 const Cart = () => {
   const { count } = useContext(CartContext);
@@ -34,6 +35,11 @@ const Cart = () => {
       }
     });
   }
+
+  const updateLocalStorage = async () => {
+    localStorage.setItem(await "cart", JSON.stringify(cart));
+  };
+
   return (
     <>
       <div className="cart">
@@ -55,15 +61,27 @@ const Cart = () => {
                     />
                   </Link>
                   <div className="cart_item-content-text">
-                    <Link key={item._id} to={`../items/${item._id}`}>
-                      <h2>{item.title}</h2>
-                      <p style={{color: "rgba(0,0,0,0.75)"}}>${item.price} per item</p>
-                    </Link>
-                    <p style={{marginTop: '15px'}}>
+                    <div className="titleanddelete">
+                      <Link key={item._id} to={`../items/${item._id}`}>
+                        <h2>{item.title}</h2>
+                      </Link>
+                      <p className="deleteitem">
+                        <HiOutlineTrash
+                          onClick={() => removeFromCart(item._id)}
+                          className="trashCartItem"
+                          alt="Delete item"
+                        />
+                      </p>
+                    </div>
+                    <p style={{ color: "rgba(0,0,0,0.75)" }}>
+                      ${item.price} per item
+                    </p>
+                    <p style={{ marginTop: "15px" }}>
                       Quantity:
                       <select
-                      style={{marginLeft: '15px'}}
+                        style={{ marginLeft: "15px" }}
                         onChange={(e) => {
+                          updateLocalStorage();
                           item.quantity = e.target.value;
                           setQty(e.target.value);
                         }}
@@ -81,12 +99,6 @@ const Cart = () => {
                         ({item.amount} in stock)
                       </span>
                     </p>
-                    {/* <p
-                      className="deleteitem"
-                      onClick={() => removeFromCart(item._id)}
-                    >
-                      Delete item
-                    </p> */}
                   </div>
                   <p>${(item.price * item.quantity).toFixed(2)}</p>
                 </li>

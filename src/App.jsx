@@ -4,7 +4,7 @@ import { CartProvider } from "./components/context/cart";
 import "./App.css";
 
 import {
-  Header,
+  // Header,
   Main,
   Navbar,
   Createitem,
@@ -23,8 +23,6 @@ import {
 
 export function App() {
   const user = localStorage.getItem("token");
-
-  // const Container
   return (
     <>
       <div
@@ -32,7 +30,7 @@ export function App() {
       >
         <CartProvider>
           <Navbar />
-          {user && <Header />}
+          {/* {user && <Header />} */}
 
           <div style={{ flex: "1" }}>
             <Routes>
