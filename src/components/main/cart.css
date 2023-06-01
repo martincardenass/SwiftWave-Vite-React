@@ -65,8 +65,8 @@
     font-size: 20px;
 }
 
-.deleteitem:hover {
-    color: orange;
+.trashCartItem:hover {
+    color: red;
 }
 
 .border {
@@ -85,7 +85,7 @@
 
 .trashCartItem {
     font-size: 2rem;
-    margin-left: 10px;
+    margin-right: 20px;
     cursor: pointer;
 }
 

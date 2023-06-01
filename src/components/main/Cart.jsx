@@ -61,18 +61,9 @@ const Cart = () => {
                     />
                   </Link>
                   <div className="cart_item-content-text">
-                    <div className="titleanddelete">
-                      <Link key={item._id} to={`../items/${item._id}`}>
-                        <h2>{item.title}</h2>
-                      </Link>
-                      <p className="deleteitem">
-                        <HiOutlineTrash
-                          onClick={() => removeFromCart(item._id)}
-                          className="trashCartItem"
-                          alt="Delete item"
-                        />
-                      </p>
-                    </div>
+                    <Link key={item._id} to={`../items/${item._id}`}>
+                      <h2>{item.title}</h2>
+                    </Link>
                     <p style={{ color: "rgba(0,0,0,0.75)" }}>
                       ${item.price} per item
                     </p>
@@ -100,7 +91,16 @@ const Cart = () => {
                       </span>
                     </p>
                   </div>
-                  <p>${(item.price * item.quantity).toFixed(2)}</p>
+                  <div className="titleanddelete">
+                    <p className="deleteitem">
+                      <HiOutlineTrash
+                        onClick={() => removeFromCart(item._id)}
+                        className="trashCartItem"
+                        alt="Delete item"
+                      />
+                    </p>
+                    <p>${(item.price * item.quantity).toFixed(2)}</p>
+                  </div>
                 </li>
               ))}
             </ul>
