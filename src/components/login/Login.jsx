@@ -10,13 +10,24 @@ const SignUp = () => {
     password: "",
   });
 
-  const handleChange = ({ currentTarget: input }) => {
-    setData({
-      ...data,
-      [input.name]: input.value,
-    });
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    if (name === "username" || name === "email") {
+      const lowercaseValue = value.toLowerCase();
+      setData((prevData) => ({
+        ...prevData,
+        [name]: lowercaseValue,
+      }));
+    } else {
+      setData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
 
+  console.log(data)
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -48,47 +59,53 @@ const SignUp = () => {
     <>
       <div className="signup">
         <div className="signup-form">
-          <div className="signup-form-text">
-            <h1>Welcome!</h1>
-            <p>Sign In to your account</p>
-            <div style={{fontSize: '12px'}}>
-              <p>Default user:</p>
-              <p>user@email.com / user</p>
+          <div className="signup-form_content">
+            <div className="signup-form-text">
+              <h1>Log In</h1>
+              <div style={{ fontSize: "12px" }}>
+                <p>
+                  Default user:{" "}
+                  <span style={{ color: "rgba(0,0,0,0.55)" }}>
+                    user@email.com / password
+                  </span>
+                </p>
+                <p></p>
+              </div>
             </div>
+            <form onSubmit={handleSubmit}>
+              <div className="input-container">
+                <input
+                  type="text"
+                  name="email"
+                  onChange={handleChange}
+                  placeholder="Email"
+                  value={data.email}
+                  required
+                  className="input-email"
+                />
+              </div>
+              <div className="input-container">
+                <input
+                  type="password"
+                  name="password"
+                  onChange={handleChange}
+                  placeholder="Password"
+                  value={data.password}
+                  required
+                  className="input-password"
+                />
+              </div>
+              <div className="input-container">
+                <input
+                  onClick={handleBlink}
+                  type="submit"
+                  value="Log In"
+                  className="submit-button"
+                />
+              </div>
+              <p className={blink ? "blink small" : "small"}>{error}</p>
+            </form>
           </div>
-          <form onSubmit={handleSubmit}>
-            <div className="input-container">
-              <input
-                type="text"
-                name="email"
-                onChange={handleChange}
-                placeholder="Email"
-                value={data.email}
-                required
-                className="input-email"
-              />
-            </div>
-            <div className="input-container">
-              <input
-                type="password"
-                name="password"
-                onChange={handleChange}
-                placeholder="Password"
-                value={data.password}
-                required
-                className="input-password"
-              />
-            </div>
-            <div className="input-container">
-              <input
-                onClick={handleBlink}
-                type="submit"
-                value="Log In"
-                className="submit-button"
-              />
-            </div>
-            <p className={blink ? "blink small" : "small"}>{error}</p>
-          </form>
         </div>
       </div>
     </>
