@@ -13,28 +13,28 @@ const MyLoader = (props) => (
   >
     {/* First line */}
     <rect x="0" y="0" rx="0" ry="0" width="282px" height="342px" />
-    <rect x="320" y="0" rx="0" ry="0" width="282px" height="342px" />
-    <rect x="640" y="0" rx="0" ry="0" width="282px" height="342px" />
-    <rect x="960" y="0" rx="0" ry="0" width="282px" height="342px" />
-    <rect x="1280" y="0" rx="0" ry="0" width="282px" height="342px" />
+    <rect x="328" y="0" rx="0" ry="0" width="282px" height="342px" />
+    <rect x="656" y="0" rx="0" ry="0" width="282px" height="342px" />
+    <rect x="984" y="0" rx="0" ry="0" width="282px" height="342px" />
+    <rect x="1312" y="0" rx="0" ry="0" width="282px" height="342px" />
     {/* Second line */}
     <rect x="0" y="375" rx="0" ry="0" width="282px" height="342px" />
-    <rect x="320" y="375" rx="0" ry="0" width="282px" height="342px" />
-    <rect x="640" y="375" rx="0" ry="0" width="282px" height="342px" />
-    <rect x="960" y="375" rx="0" ry="0" width="282px" height="342px" />
-    <rect x="1280" y="375" rx="0" ry="0" width="282px" height="342px" />
+    <rect x="328" y="375" rx="0" ry="0" width="282px" height="342px" />
+    <rect x="656" y="375" rx="0" ry="0" width="282px" height="342px" />
+    <rect x="984" y="375" rx="0" ry="0" width="282px" height="342px" />
+    <rect x="1312" y="375" rx="0" ry="0" width="282px" height="342px" />
     {/* Third line */}
     <rect x="0" y="750" rx="0" ry="0" width="282px" height="342px" />
-    <rect x="320" y="750" rx="0" ry="0" width="282px" height="342px" />
-    <rect x="640" y="750" rx="0" ry="0" width="282px" height="342px" />
-    <rect x="960" y="750" rx="0" ry="0" width="282px" height="342px" />
-    <rect x="1280" y="750" rx="0" ry="0" width="282px" height="342px" />
+    <rect x="328" y="750" rx="0" ry="0" width="282px" height="342px" />
+    <rect x="656" y="750" rx="0" ry="0" width="282px" height="342px" />
+    <rect x="984" y="750" rx="0" ry="0" width="282px" height="342px" />
+    <rect x="1312" y="750" rx="0" ry="0" width="282px" height="342px" />
     {/* Fourth line */}
     <rect x="0" y="1125" rx="0" ry="0" width="282px" height="342px" />
-    <rect x="320" y="1125" rx="0" ry="0" width="282px" height="342px" />
-    <rect x="640" y="1125" rx="0" ry="0" width="282px" height="342px" />
-    <rect x="960" y="1125" rx="0" ry="0" width="282px" height="342px" />
-    <rect x="1280" y="1125" rx="0" ry="0" width="282px" height="342px" />
+    <rect x="328" y="1125" rx="0" ry="0" width="282px" height="342px" />
+    <rect x="656" y="1125" rx="0" ry="0" width="282px" height="342px" />
+    <rect x="984" y="1125" rx="0" ry="0" width="282px" height="342px" />
+    <rect x="1312" y="1125" rx="0" ry="0" width="282px" height="342px" />
   </ContentLoader>
 );
 

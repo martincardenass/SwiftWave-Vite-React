@@ -5,6 +5,7 @@ import { AiFillThunderbolt } from "react-icons/ai";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
+import DetailsLoader from "./ItemDetailsLoader";
 
 const ItemDetails = ({ item }) => {
   const { addToCart, cart, clearCart } = useCart();
@@ -22,11 +23,14 @@ const ItemDetails = ({ item }) => {
     navigate("/");
   };
 
+  console.log(item)
+
   return (
     <>
       <div className="main">
         <div className="item">
-          <div className="item_details">
+          {Object.keys(item).length === 0 ? (<DetailsLoader/>) : (
+            <div className="item_details">
             <div className="item_details-cnt">
               <div className="item_category">
                 <p style={{ display: "flex", alignItems: "center" }} key={4}>
@@ -62,7 +66,7 @@ const ItemDetails = ({ item }) => {
                 <p key={5}>{item.amount || "undefined"} in stock</p>
               </div>
               <div className="item_btns">
-                <button className="button1">Purchaste now</button>
+                <button className="button1">Purchase now</button>
                 <Link to="/cart">
                   <button className="button2" onClick={() => addToCart(item)}>
                     Add to cart
@@ -103,7 +107,7 @@ const ItemDetails = ({ item }) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div>)}
         </div>
       </div>
     </>

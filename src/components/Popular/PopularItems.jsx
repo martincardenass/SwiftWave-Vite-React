@@ -10,6 +10,7 @@ import getItemById from "../Items/getItemById";
 import SortOptions from "../main/SortOptions";
 import { useFilter } from "../../hooks/filtering";
 import { usePagination } from "../../hooks/pagination";
+import MyLoader from "../main/ItemLoader";
 
 const PopularItems = () => {
   const {
@@ -54,7 +55,7 @@ const PopularItems = () => {
   useEffect(() => {
     const getPopularItems = async () => {
       setPopularItems([]);
-      const url = `/items/popular?sortOrder=${filter.order}&sortField=${filter.sort}&page=${filter.page}`; //^ sadly, it cannot be in multiple lines.
+      const url = `/items/popular?sortOrder=${filter.order}&sortField=${filter.sort}&page=${filter.page}&limit=24`; //^ sadly, it cannot be in multiple lines.
       await axios.get(url).then((response) => {
         setPopularItems(response.data.items);
         setQueryTotalPages(response.data.queryTotalPages)
@@ -86,10 +87,10 @@ const PopularItems = () => {
     return (
       <>
         <div className="banner">
-          <div className="banner-icons">
+          {/* <div className="banner-icons">
             <AiFillThunderbolt className="heart" />
             <AiFillThunderbolt className="heart1" />
-          </div>
+          </div> */}
           <div className="popular-header">
             <h1>Most popular items</h1>
           </div>
@@ -102,11 +103,14 @@ const PopularItems = () => {
           />
           <div className="main-items">
             <div className="main-items_items">
-              {myPopularItems.map((item) => (
+              {myPopularItems.length === 0 ? (
+                <MyLoader />
+              ) : (
+              myPopularItems.map((item) => (
                 <Link key={item._id} to={`${item._id}`}>
                   <ItemCard key={item._id} item={item} />
                 </Link>
-              ))}
+              )))}
             </div>
           </div>
           <nav>

@@ -23,7 +23,6 @@ const SortOptions = ({
     <>
       <div className="sortanddata_container">
         <div className="categorytext">
-          {/* {categoryText}   */}
           {sortCategory && (
             <p>
               Showing only items with category: {sortCategory}.
@@ -31,7 +30,7 @@ const SortOptions = ({
                 className="removecategory"
                 onClick={handleSortCategoryAbort}
               >
-                {" "}
+                 {" "}  {/* Empty space*/}
                 Back to all items
               </span>
             </p>
