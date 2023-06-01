@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./cart.css";
 import { useCart } from "../../hooks/useCart";
 import { Link } from "react-router-dom";
@@ -7,10 +7,10 @@ import { CartContext } from "../context/cart";
 const Cart = () => {
   const { count } = useContext(CartContext);
   const { cart, removeFromCart } = useCart();
-  const [qty, setQty] = useState();
+  const [qty, setQty] = useState(count);
   const optionsList = [];
 
-  const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+  // const totalPrice = cart.reduce((total, item) => total + item.price * qty, 0).toFixed(2);
 
   if (cart.length === 0) {
     //? if cart is empty
@@ -57,35 +57,38 @@ const Cart = () => {
                   <div className="cart_item-content-text">
                     <Link key={item._id} to={`../items/${item._id}`}>
                       <h2>{item.title}</h2>
+                      <p style={{color: "rgba(0,0,0,0.75)"}}>${item.price} per item</p>
                     </Link>
-                    <p>
+                    <p style={{marginTop: '15px'}}>
                       Quantity:
                       <select
+                      style={{marginLeft: '15px'}}
                         onChange={(e) => {
                           item.quantity = e.target.value;
                           setQty(e.target.value);
                         }}
                         value={item.quantity}
                       >
-                        {optionsList}
+                        {optionsList.slice(0, item.amount)}
                       </select>
                       <span
                         style={{
                           color: "rgba(0,0,0,0.75)",
                           marginLeft: "10px",
+                          fontSize: "15px",
                         }}
                       >
                         ({item.amount} in stock)
                       </span>
                     </p>
-                    <p
+                    {/* <p
                       className="deleteitem"
                       onClick={() => removeFromCart(item._id)}
                     >
                       Delete item
-                    </p>
+                    </p> */}
                   </div>
-                  <p>${item.price}</p>
+                  <p>${(item.price * item.quantity).toFixed(2)}</p>
                 </li>
               ))}
             </ul>
@@ -95,7 +98,9 @@ const Cart = () => {
             <div style={{ fontWeight: "bold", marginRight: "10px" }}>
               Subtotal:
             </div>
-            ${totalPrice}
+            {cart
+              .reduce((total, item) => total + item.price * item.quantity, 0)
+              .toFixed(2)}
           </div>
           {/* <button onClick={clearCart}>Clear cart</button> */}
         </div>

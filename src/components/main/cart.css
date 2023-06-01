@@ -5,8 +5,8 @@
 }
 
 .cart-container {
-    margin: 3rem;
-    width: 100%;
+    /* margin: 3rem; */
+    width: 80%;
     background-color: white;
     padding: 2rem 5rem;
 }
@@ -45,6 +45,7 @@
     width: 200px;
     height: 200px;
     object-fit: contain !important;
+    padding: 1rem;
 }
 
 .cart_item ul {

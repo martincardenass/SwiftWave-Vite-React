@@ -150,6 +150,7 @@
 }
 
 .logout {
+    padding-right: 1rem;
     color: #fff;
     cursor: pointer;
 }
