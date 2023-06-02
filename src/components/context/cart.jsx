@@ -1,12 +1,14 @@
 import { createContext, useEffect, useState } from "react";
-
-// export const CartStoredInLocalStorage = JSON.parse(localStorage.getItem('cart')) || []
+import { useUserCart } from "../../hooks/getUserCart";
+import axios from "axios";
 
 export const CartContext = createContext();
 
 export function CartProvider({ children }) {
+  const { userCart } = useUserCart();
   const [cart, setCart] = useState([]);
   const [count, setCount] = useState(1);
+  const storedUserId = JSON.parse(localStorage.getItem("userId"));
 
   // Load cart from localStorage on component mount
   useEffect(() => {
@@ -16,22 +18,49 @@ export function CartProvider({ children }) {
     }
   }, []);
 
-  const addToCart = (itemCart) => {
-    const itemId = cart.findIndex((item) => item._id === itemCart._id);
+  // Load cart from the user, if logged
+  useEffect(() => {
+    if (storedUserId) {
+      setCart(userCart);
+    }
+  }, [userCart]);
 
-    if (itemId !== -1) {
-      const newCart = structuredClone(cart);
-      newCart[itemId].quantity += Number(count);
-      return setCart(newCart);
+  const addToCart = (itemCart) => {
+    if (!storedUserId) {
+      // if no user is logged
+      const itemId = cart.findIndex((item) => item._id === itemCart._id);
+
+      if (itemId !== -1) {
+        const newCart = structuredClone(cart);
+        newCart[itemId].quantity += Number(count);
+        return setCart(newCart);
+      }
+
+      setCart((prevState) => [
+        ...prevState,
+        {
+          ...itemCart,
+          quantity: Number(count),
+        },
+      ]);
     }
 
-    setCart((prevState) => [
-      ...prevState,
-      {
-        ...itemCart,
-        quantity: Number(count),
-      },
-    ]);
+    //if user is logged
+    if (storedUserId) {
+      const patchCart = async () => {
+        const url = `/api/postcart`;
+
+        const updatedCart = [...cart, { ...itemCart, quantity: Number(count) }];
+        const cartItem = {
+          id: storedUserId,
+          cart: updatedCart,
+        };
+        await axios.patch(url, cartItem);
+        setCart(updatedCart);
+      };
+
+      patchCart();
+    }
   };
 
   useEffect(() => {
@@ -43,8 +72,44 @@ export function CartProvider({ children }) {
   };
 
   const removeFromCart = (_id) => {
-    const newCart = cart.filter((obj) => obj._id !== _id);
-    setCart(newCart);
+    if (!storedUserId) {
+      // if no user is logged.
+      const newCart = cart.filter((obj) => obj._id !== _id);
+      setCart(newCart);
+    }
+
+    if (storedUserId) {
+      const newCart = async () => {
+        const url = `/api/postcart`;
+        const newCart = cart.filter((obj) => obj._id !== _id);
+        const cartItem = {
+          id: storedUserId,
+          cart: newCart,
+        };
+
+        await axios.patch(url, cartItem);
+        setCart(newCart);
+      };
+      newCart();
+    }
+  };
+
+  const changeQuantity = (_id, quantity, selectedQty) => {
+    const patchCartQuantity = async () => {
+      const url = `/api/postcart`;
+
+      const itemIndex = cart.findIndex((obj) => obj._id === _id);
+      const newCart = [...cart];
+      newCart[itemIndex].quantity = Number(selectedQty);
+
+      const cartItem = {
+        id: storedUserId,
+        cart: newCart,
+      };
+      await axios.patch(url, cartItem);
+      // setCart(updatedCart)
+    };
+    patchCartQuantity();
   };
 
   return (
@@ -56,6 +121,7 @@ export function CartProvider({ children }) {
         addToCart,
         clearCart,
         removeFromCart,
+        changeQuantity,
       }}
     >
       {children}

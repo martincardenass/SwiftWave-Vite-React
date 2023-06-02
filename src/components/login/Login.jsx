@@ -33,7 +33,8 @@ const SignUp = () => {
     try {
       const url = "/api/auth";
       const { data: res } = await axios.post(url, data);
-      localStorage.setItem("token", res.data);
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("userId", JSON.stringify(res.data.userId));
       window.location = "/"; //!Change to Navigate React
     } catch (error) {
       if (error.response) {

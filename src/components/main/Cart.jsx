@@ -7,11 +7,10 @@ import { HiOutlineTrash } from "react-icons/hi";
 
 const Cart = () => {
   const { count } = useContext(CartContext);
-  const { cart, removeFromCart } = useCart();
+  const { cart, removeFromCart, changeQuantity } = useCart();
   const [qty, setQty] = useState(count);
+  const [qty1, setQty1] = useState(1)
   const optionsList = [];
-
-  // const totalPrice = cart.reduce((total, item) => total + item.price * qty, 0).toFixed(2);
 
   if (cart.length === 0) {
     //? if cart is empty
@@ -72,9 +71,11 @@ const Cart = () => {
                       <select
                         style={{ marginLeft: "15px" }}
                         onChange={(e) => {
+                          const selectedQty = e.target.value
+                          setQty(selectedQty);
+                          changeQuantity(item._id, item.quantity, selectedQty)
                           updateLocalStorage();
                           item.quantity = e.target.value;
-                          setQty(e.target.value);
                         }}
                         value={item.quantity}
                       >
