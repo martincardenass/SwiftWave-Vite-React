@@ -11,18 +11,14 @@ const DetailsLoader = (props) => (
     foregroundColor="#ecebeb"
     {...props}
   >
-    {/* Text */}
-    <rect x="180" y="155" rx="5" ry="5" width="385" height="50px" />
-    <rect x="180" y="230" rx="5" ry="5" width="485" height="135px" />
-    <rect x="180" y="380" rx="5" ry="5" width="200" height="33px" />
-    <rect x="180" y="440" rx="5" ry="5" width="260" height="58px" />
-    <rect x="455" y="440" rx="5" ry="5" width="195" height="58px" />
-    <rect x="180" y="520" rx="5" ry="5" width="485" height="80px" />
-    {/* Image and its text */}
-    <rect x="1160" y="70" rx="5" ry="5" width="150" height="25px" />
-    <rect x="820" y="100" rx="5" ry="5" width="490" height="505px" />
-    <rect x="820" y="610" rx="5" ry="5" width="175" height="50px" />
-    <rect x="1000" y="610" rx="5" ry="5" width="125" height="50px" />
+    <rect x="0" y="80" rx="5" ry="5" width="500" height="500px" />
+    <rect x="0" y="595" rx="5" ry="5" width="250" height="45px" />
+    <rect x="535" y="135" rx="5" ry="5" width="270" height="45px" />
+    <rect x="535" y="200" rx="5" ry="5" width="775" height="190px" />
+    <rect x="535" y="410" rx="5" ry="5" width="190" height="35px" />
+    <rect x="685" y="470" rx="5" ry="5" width="250" height="65px" />
+    <rect x="950" y="470" rx="5" ry="5" width="195" height="65px" />
+    <rect x="535" y="550" rx="5" ry="5" width="775" height="65px" />
   </ContentLoader>
 );
 
