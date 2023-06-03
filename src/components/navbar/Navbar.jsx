@@ -10,6 +10,7 @@ import {
 } from "react-icons/ai";
 import { IoHeartSharp } from "react-icons/io5";
 import { MdHelpOutline } from "react-icons/md";
+import { FaSearch } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
@@ -53,7 +54,7 @@ const MenuCart = () => (
   <>
     <FaShoppingCart className="nav-icons" color="#000" size="1.75rem" />
     <p>
-    <Link to="/cart">Shopping Cart</Link>
+      <Link to="/cart">Shopping Cart</Link>
     </p>
   </>
 );
@@ -63,7 +64,7 @@ const NavBarItems = [
   <MenuOnSale key={1} />,
   <MenuHistory key={2} />,
   <MenuHelp key={3} />,
-  <MenuCart key={4} />
+  <MenuCart key={4} />,
 ];
 
 const SignUp = () => (
@@ -80,6 +81,7 @@ const Login = () => (
 
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
+  const [inputValue, setInputValue] = useState("");
   const [menuIcon, setMenuIcon] = useState(
     <VscMenu className="nav-burger-menu" color="#fff" size="1.75rem" />
   );
@@ -138,17 +140,35 @@ const Navbar = () => {
     }
   };
 
+  const handleInputValue = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleSearch = () => {
+    navigate(`/search/${inputValue}`);
+  };
+
   return (
     <>
       <div className="nav">
-        <p onClick={() => navigate('/')} style={{color: 'white', cursor: 'pointer'}}>Shopping Website</p>
-        <div className="nav-links">{NavBarItems.slice(0,4)}</div>
-        <input
-          id="nav-search"
-          type="text"
-          placeholder="Search"
-          onKeyDown={handleKeyDown}
-        />
+        <p
+          onClick={() => navigate("/")}
+          style={{ color: "white", cursor: "pointer" }}
+        >
+          Shopping Website
+        </p>
+        <div className="nav-links">{NavBarItems.slice(0, 4)}</div>
+        <div className="searchbar">
+          <input
+            id="nav-search"
+            type="text"
+            placeholder="Search"
+            autoComplete="off"
+            onKeyDown={handleKeyDown}
+            onChange={handleInputValue}
+          />
+          <FaSearch className="searchbar-icon" onClick={handleSearch} />
+        </div>
         {menuIcon && (
           <>
             <div className="nav-burger-menu" onClick={handleClick}>
@@ -207,7 +227,19 @@ const Navbar = () => {
                 </div>
               )}
             </div>
-            <div className="nav-phone_menu" onClick={() => {(setToggle(!toggle), setMenuIcon(<VscMenu className="nav-burger-menu" color="#fff" size="1.75rem" />))}}>
+            <div
+              className="nav-phone_menu"
+              onClick={() => {
+                setToggle(!toggle),
+                  setMenuIcon(
+                    <VscMenu
+                      className="nav-burger-menu"
+                      color="#fff"
+                      size="1.75rem"
+                    />
+                  );
+              }}
+            >
               <div className="nav-phone_menu-container">{NavBarItems[0]}</div>
               <div className="nav-phone_separator"></div>
               <div className="nav-phone_menu-container">{NavBarItems[1]}</div>
