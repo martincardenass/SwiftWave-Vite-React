@@ -1,36 +1,32 @@
 .banner {
-    position: relative;
-    background-color: black;
-    align-items: center;
-    justify-content: center
+  position: relative;
+  background-color: black;
+  align-items: center;
+  justify-content: center;
 }
 
 .banner-icons {
-    justify-content: space-around;
+  justify-content: space-around;
 }
 
 .popular-header h1 {
-    text-transform: uppercase;
-    color: white;
-    font-size: 90px;
-    padding: 5rem 1rem;
-    text-align: center;
+  text-transform: uppercase;
+  color: white;
+  font-size: 90px;
+  padding: 3rem 1rem;
+  text-align: center;
 }
 
-.heart {
-    position: absolute;
-    font-size: 15rem;
-    top: 10px;
-    color: yellow;
-    /* transform: rotate(45deg); */
+@media screen and (max-width: 1050px) {
+    .popular-header h1 {
+        font-size: 60px;
+        padding: 2rem 1rem;
+    }
 }
 
-.heart1 {
-    position: absolute;
-    font-size: 7rem;
-    top: 150px;
-    left: 25px;
-    color: yellow;
-    opacity: 0.5;
-    /* transform: rotate(45deg); */
+@media screen and (max-width: 690px) {
+    .popular-header h1 {
+        font-size: 30px;
+        padding: 1rem;
+    }
 }

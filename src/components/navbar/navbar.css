@@ -4,6 +4,14 @@
     display: none;
 }
 
+.user_icon {
+    font-size: 3.5rem;
+    margin-right: 25px;
+    color: #fff;
+    background-color: rgb(197, 197, 197);
+    border-radius: 50%;
+}
+
 .nav-burger-menu {
     display: none;
     cursor: pointer;
@@ -18,7 +26,6 @@
     justify-content: center;
     background: white;
     width: 100%;
-    height: 100vh;
 }
 
 .nav-phone_user {
@@ -41,7 +48,7 @@
 
 .nav-phone_user-text p {
     color: white;
-    font-size: 14px;
+    font-size: 18px;
 }
 
 .nav-phone_user-buttons {
@@ -76,7 +83,7 @@
 }
 
 .nav-phone_menu p {
-    margin: 1.1rem .75rem;
+    margin: 1rem;
 }
 
 .nav-phone_menu-container {
@@ -101,7 +108,7 @@
     background: black;
     opacity: 0.1;
     width: 100%;
-    height: 2px;
+    height: 1px;
 }
 
 .nav {
@@ -140,9 +147,10 @@
 
 .nav-usermenu {
     color: white;
-    padding: 1rem;
+    padding: 1.25rem;
     display: flex;
 }
+
 .nav-usermenu a {
     
     padding: 1rem;
@@ -153,6 +161,10 @@
     padding-right: 1rem;
     color: #fff;
     cursor: pointer;
+}
+
+.logout:hover {
+    color: red;
 }
 
 .shoppingcart {
@@ -167,7 +179,7 @@
 
 @media screen and (max-width: 1050px) {
     .nav {
-        padding: 0 1rem 0 0;
+        padding: 1rem;
         display: flex;
         justify-content: space-between;
     }

@@ -25,8 +25,8 @@ const ItemDetails = ({ item }) => {
   };
 
   useEffect(() => {
-    setCount(1)
-  }, [])
+    setCount(1);
+  }, []);
 
   return (
     <>
@@ -36,6 +36,34 @@ const ItemDetails = ({ item }) => {
             <DetailsLoader />
           ) : (
             <div className="item_details">
+              <div className="item_imgandfav" key={item.image}>
+                <img
+                  src={`http://localhost:3001/${item.image}`}
+                  alt={item.title}
+                />
+                <div className="item_iconscontainer">
+                  {item.isPopular === true ? (
+                    <div className="item_imgandfav-thunder">
+                      <AiFillThunderbolt />
+                      <p>Popular item</p>
+                    </div>
+                  ) : null}
+                  <div className="item_imgandfav-fav">
+                    {isClicked ? (
+                      <IoHeartSharp
+                        style={{ cursor: "pointer" }}
+                        onClick={handleClick}
+                      />
+                    ) : (
+                      <IoHeartOutline
+                        style={{ cursor: "pointer" }}
+                        onClick={handleClick}
+                      />
+                    )}
+                    <p onClick={handleClick}>{likeText}</p>
+                  </div>
+                </div>
+              </div>
               <div className="item_details-cnt">
                 <div className="item_category">
                   <p style={{ display: "flex", alignItems: "center" }} key={4}>
@@ -82,38 +110,6 @@ const ItemDetails = ({ item }) => {
                   </Link>
                 </div>
                 <p key={6}>{item.description}</p>
-              </div>
-              <div className="item_imgandfav" key={item.image}>
-                <div className="flex">
-                  <p onClick={handleReturn}>Back to all items</p>
-                  <MdKeyboardArrowRight />
-                </div>
-                <img
-                  src={`http://localhost:3001/${item.image}`}
-                  alt="Product Image"
-                />
-                <div className="item_iconscontainer">
-                  {item.isPopular === true ? (
-                    <div className="item_imgandfav-thunder">
-                      <AiFillThunderbolt />
-                      <p>Popular item</p>
-                    </div>
-                  ) : null}
-                  <div className="item_imgandfav-fav">
-                    {isClicked ? (
-                      <IoHeartSharp
-                        style={{ cursor: "pointer" }}
-                        onClick={handleClick}
-                      />
-                    ) : (
-                      <IoHeartOutline
-                        style={{ cursor: "pointer" }}
-                        onClick={handleClick}
-                      />
-                    )}
-                    <p onClick={handleClick}>{likeText}</p>
-                  </div>
-                </div>
               </div>
             </div>
           )}

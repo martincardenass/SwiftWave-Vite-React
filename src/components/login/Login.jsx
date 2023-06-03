@@ -27,7 +27,7 @@ const SignUp = () => {
     }
   };
 
-  console.log(data)
+  console.log(data);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -59,54 +59,52 @@ const SignUp = () => {
   return (
     <>
       <div className="signup">
-        <div className="signup-form">
-          <div className="signup-form_content">
-            <div className="signup-form-text">
-              <h1>Log In</h1>
-              <div style={{ fontSize: "12px" }}>
-                <p>
-                  Default user:{" "}
-                  <span style={{ color: "rgba(0,0,0,0.55)" }}>
-                    user@email.com / password
-                  </span>
-                </p>
-                <p></p>
-              </div>
-            </div>
-            <form onSubmit={handleSubmit}>
-              <div className="input-container">
-                <input
-                  type="text"
-                  name="email"
-                  onChange={handleChange}
-                  placeholder="Email"
-                  value={data.email}
-                  required
-                  className="input-email"
-                />
-              </div>
-              <div className="input-container">
-                <input
-                  type="password"
-                  name="password"
-                  onChange={handleChange}
-                  placeholder="Password"
-                  value={data.password}
-                  required
-                  className="input-password"
-                />
-              </div>
-              <div className="input-container">
-                <input
-                  onClick={handleBlink}
-                  type="submit"
-                  value="Log In"
-                  className="submit-button"
-                />
-              </div>
-              <p className={blink ? "blink small" : "small"}>{error}</p>
-            </form>
+        <div className="signup-form-text">
+          <h1>Log In</h1>
+          <div style={{ fontSize: "12px" }}>
+            <p>
+              Default user:{" "}
+              <span style={{ color: "rgba(0,0,0,0.55)" }}>
+                user@email.com / password
+              </span>
+            </p>
+            <p></p>
           </div>
+        </div>
+        <div className="signup-form-form">
+          <form onSubmit={handleSubmit}>
+            <div className="input-container">
+              <input
+                type="text"
+                name="email"
+                onChange={handleChange}
+                placeholder="Email"
+                value={data.email}
+                required
+                className="input-email"
+              />
+            </div>
+            <div className="input-container">
+              <input
+                type="password"
+                name="password"
+                onChange={handleChange}
+                placeholder="Password"
+                value={data.password}
+                required
+                className="input-password"
+              />
+            </div>
+            <div className="input-container">
+              <input
+                onClick={handleBlink}
+                type="submit"
+                value="Log In"
+                className="submit-button"
+              />
+            </div>
+            <p className={blink ? "blink small" : "small"}>{error}</p>
+          </form>
         </div>
       </div>
     </>

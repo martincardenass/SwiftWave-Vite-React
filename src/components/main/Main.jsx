@@ -8,6 +8,9 @@ import PriceFilter from "./PriceFilter";
 import ItemCard from "./ItemCard";
 import CategoryFilter from "./CategoryFilter";
 import SortOptions from "./SortOptions";
+import SortOptionsMobile from "./SortOptionsMobile";
+import { TbArrowsDownUp } from "react-icons/tb";
+import { BiAbacus } from "react-icons/bi";
 import { Link, useParams } from "react-router-dom";
 import { useFilter } from "../../hooks/filtering";
 import { usePagination } from "../../hooks/pagination";
@@ -49,6 +52,8 @@ const Main = () => {
     minimumPrice,
   } = GetItems();
   const { item } = getItemById();
+  const [toggleSort, setToggleSort] = useState(false);
+  const [toggleFilter, setToggleFilter] = useState(false);
   const [price, setPrice] = useState(0);
   const { id } = useParams();
 
@@ -70,74 +75,130 @@ const Main = () => {
     });
   }, [queryTotalPages]);
 
+  const handleSortChange = () => {
+    setToggleSort(!toggleSort);
+    setToggleFilter(false);
+  };
+
+  const handleFilterChange = () => {
+    setToggleFilter(!toggleFilter);
+    setToggleSort(false);
+  };
+
   if (!id) {
     return (
       <>
-        <div className="main">
-          <div className="main-items">
-            <SortOptions
-              sortField={sortField}
-              sortOrder={sortOrder}
-              onSortChange={handleSortOrderChange}
-              sortCategory={sortCategory}
-              onCategoryAbort={handleSortCategoryAbort}
-            />
-            <div className="main-teims_content">
-              <div className="main-sidebar">
-                <PriceFilter
-                  minPriceChange={handleMinPriceChange}
-                  maxPriceChange={handleMaxPriceChange}
-                  price={price}
-                  maximumPrice={maximumPrice}
-                  minimumPrice={minimumPrice}
-                />
-                <CategoryFilter onCategoryChange={handleCategoryChange} />
+        <div className="mainall">
+          <div className="main">
+            <div className="main-items">
+              <div className="navphone">
+                <div className="navphone_filterby" onClick={handleSortChange}>
+                  <TbArrowsDownUp />
+                  <p>Sort by</p>
+                </div>
+                <div className="navphone_sortby" onClick={handleFilterChange}>
+                  <BiAbacus />
+                  <p>Filter by</p>
+                </div>
               </div>
-              <div className="main-items_items">
-                {/* {!queryPages && (
-                  <div className="noitems">
-                    Sorry, but there are no items that match your filter
-                    criteria.
-                  </div>
-                )} */}
-                {productsArray.length === 0 ? (
-                  <MyLoader />
-                ) : (
-                  productsArray.map((product) => (
-                    <Link key={product._id} to={`items/${product._id}`}>
-                      <ItemCard key={product._id} item={product} />
-                    </Link>
-                  ))
+              {toggleSort && (
+                <div className="sortoptionsformobile">
+                  <SortOptionsMobile
+                    sortField={sortField}
+                    sortOrder={sortOrder}
+                    onSortChange={handleSortOrderChange}
+                  />
+                </div>
+              )}
+              {toggleFilter && (
+                <div className="navphone-filter">
+                  <PriceFilter
+                    minPriceChange={handleMinPriceChange}
+                    maxPriceChange={handleMaxPriceChange}
+                    price={price}
+                    maximumPrice={maximumPrice}
+                    minimumPrice={minimumPrice}
+                  />
+                  <CategoryFilter onCategoryChange={handleCategoryChange} />
+                </div>
+              )}
+              <div className="hiddensorttext">
+                {sortCategory && (
+                  <p>
+                    Category: {sortCategory}.
+                    <span
+                      className="removecategory"
+                      onClick={() => window.location.reload()}
+                    >
+                      {" "}
+                      {/* Empty space*/}
+                      Reset all filters
+                    </span>
+                  </p>
                 )}
               </div>
+              <div className="sortoptions">
+                <SortOptions
+                  sortField={sortField}
+                  sortOrder={sortOrder}
+                  onSortChange={handleSortOrderChange}
+                  sortCategory={sortCategory}
+                  onCategoryAbort={handleSortCategoryAbort}
+                />
+              </div>
+              <div className="main-teims_content">
+                <div className="main-sidebar">
+                  <PriceFilter
+                    minPriceChange={handleMinPriceChange}
+                    maxPriceChange={handleMaxPriceChange}
+                    price={price}
+                    maximumPrice={maximumPrice}
+                    minimumPrice={minimumPrice}
+                  />
+                  <CategoryFilter onCategoryChange={handleCategoryChange} />
+                </div>
+                <div className="items_container">
+                  <div className="main-items_items">
+                    {productsArray.length === 0 ? (
+                      <MyLoader />
+                    ) : (
+                      productsArray.map((product) => (
+                        <Link key={product._id} to={`items/${product._id}`}>
+                          <ItemCard key={product._id} item={product} />
+                        </Link>
+                      ))
+                    )}
+                  </div>
+                </div>
+              </div>
             </div>
+            <div className="query">
+              <p>Total items: {queryPages}</p>
+            </div>
+            <nav>
+              <ul className="pagination">
+                <li
+                  onClick={handlePageChange}
+                  onMouseDown={handleLeftClick}
+                  onMouseLeave={handleLeftRelease}
+                  onMouseUp={handleLeftRelease}
+                  className={leftClick ? "selected" : ""}
+                >
+                  <a href="">«</a>
+                </li>
+                {listItems}
+                <li
+                  onClick={handlePageChange}
+                  onMouseDown={handleRightClick}
+                  onMouseLeave={handleRightRelease}
+                  onMouseUp={handleRightRelease}
+                  className={rightClick ? "selected" : ""}
+                >
+                  <a href="">»</a>
+                </li>
+              </ul>
+            </nav>
           </div>
-          <div className="query">
-            <p>Total items: {queryPages}</p>
-          </div>
-          <nav>
-            <ul className="pagination">
-              <li
-                onClick={handlePageChange}
-                onMouseDown={handleLeftClick}
-                onMouseLeave={handleLeftRelease}
-                onMouseUp={handleLeftRelease}
-                className={leftClick ? "selected" : ""}
-              >
-                <a href="">«</a>
-              </li>
-              {listItems}
-              <li
-                onClick={handlePageChange}
-                onMouseDown={handleRightClick}
-                onMouseLeave={handleRightRelease}
-                onMouseUp={handleRightRelease}
-                className={rightClick ? "selected" : ""}
-              >
-                <a href="">»</a>
-              </li>
-            </ul>
-          </nav>
         </div>
       </>
     );

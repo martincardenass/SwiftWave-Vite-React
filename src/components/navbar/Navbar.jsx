@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./navbar.css";
-import { Banner, Icon } from "./imports";
 import { VscMenu } from "react-icons/vsc";
 import { RxCross1 } from "react-icons/rx";
 import { FaShoppingCart } from "react-icons/fa";
-import { AiFillThunderbolt } from "react-icons/ai";
-import { AiOutlineHome } from "react-icons/ai";
+import {
+  AiOutlineHome,
+  AiOutlineUser,
+  AiFillThunderbolt,
+} from "react-icons/ai";
 import { IoHeartSharp } from "react-icons/io5";
 import { MdHelpOutline } from "react-icons/md";
-import { MdDataExploration } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
@@ -39,15 +40,6 @@ const MenuHistory = () => (
   </>
 );
 
-const MenuSellWithUs = () => (
-  <>
-    <MdDataExploration className="nav-icons" color="#000" size="1.75rem" />
-    <p>
-      <a href="">Sell with us</a>
-    </p>
-  </>
-);
-
 const MenuHelp = () => (
   <>
     <MdHelpOutline className="nav-icons" color="#000" size="1.75rem" />
@@ -57,12 +49,21 @@ const MenuHelp = () => (
   </>
 );
 
+const MenuCart = () => (
+  <>
+    <FaShoppingCart className="nav-icons" color="#000" size="1.75rem" />
+    <p>
+    <Link to="/cart">Shopping Cart</Link>
+    </p>
+  </>
+);
+
 const NavBarItems = [
   <MenuCategories key={0} />,
   <MenuOnSale key={1} />,
   <MenuHistory key={2} />,
-  // <MenuSellWithUs key={3} />,
-  <MenuHelp key={4} />,
+  <MenuHelp key={3} />,
+  <MenuCart key={4} />
 ];
 
 const SignUp = () => (
@@ -95,7 +96,7 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
-    localStorage.removeItem("cart")
+    localStorage.removeItem("cart");
     window.location.reload();
   };
 
@@ -140,12 +141,12 @@ const Navbar = () => {
   return (
     <>
       <div className="nav">
-        <img src={Banner} alt="Welcome to our page" />
-        <div className="nav-links">{NavBarItems}</div>
+        <p onClick={() => navigate('/')} style={{color: 'white', cursor: 'pointer'}}>Shopping Website</p>
+        <div className="nav-links">{NavBarItems.slice(0,4)}</div>
         <input
           id="nav-search"
           type="text"
-          placeholder="Search for products..."
+          placeholder="Search"
           onKeyDown={handleKeyDown}
         />
         {menuIcon && (
@@ -177,7 +178,7 @@ const Navbar = () => {
           <div className="nav-phone_items">
             <div className="nav-phone_user">
               <div className="nav-phone_user-banner">
-                <img src={Icon} alt="User Icon" />
+                <AiOutlineUser className="user_icon" />
                 {username ? (
                   <div className="nav-phone_user-text">
                     <p>Welcome, {username}</p>
@@ -206,7 +207,7 @@ const Navbar = () => {
                 </div>
               )}
             </div>
-            <div className="nav-phone_menu">
+            <div className="nav-phone_menu" onClick={() => {(setToggle(!toggle), setMenuIcon(<VscMenu className="nav-burger-menu" color="#fff" size="1.75rem" />))}}>
               <div className="nav-phone_menu-container">{NavBarItems[0]}</div>
               <div className="nav-phone_separator"></div>
               <div className="nav-phone_menu-container">{NavBarItems[1]}</div>
@@ -216,7 +217,6 @@ const Navbar = () => {
               <div className="nav-phone_menu-container">{NavBarItems[3]}</div>
               <div className="nav-phone_separator"></div>
               <div className="nav-phone_menu-container">{NavBarItems[4]}</div>
-              <div className="nav-phone_separator"></div>
             </div>
           </div>
         </div>

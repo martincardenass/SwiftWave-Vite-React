@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { AiFillThunderbolt } from "react-icons/ai";
 import "../main/main.css";
 import "./popularitems.css";
 import axios from "axios";
@@ -8,9 +7,11 @@ import ItemCard from "../main/ItemCard";
 import ItemDetails from "../main/ItemDetails";
 import getItemById from "../Items/getItemById";
 import SortOptions from "../main/SortOptions";
+import { TbArrowsDownUp } from "react-icons/tb";
 import { useFilter } from "../../hooks/filtering";
 import { usePagination } from "../../hooks/pagination";
-import MyLoader from "../main/ItemLoader";
+import MiscLoader from "../main/MiscItemsLoader";
+import SortOptionsMobile from "../main/SortOptionsMobile";
 
 const PopularItems = () => {
   const {
@@ -28,14 +29,12 @@ const PopularItems = () => {
     sortOrder,
     handleSortOrderChange,
   } = usePagination();
-  const {
-    filter,
-    autoUpdateFilter,
-  } = useFilter();
+  const { filter, autoUpdateFilter } = useFilter();
   const { item } = getItemById();
   const { id } = useParams();
   const [popularItems, setPopularItems] = useState([]);
   const [queryTotalPages, setQueryTotalPages] = useState([]);
+  const [toggleSort, setToggleSort] = useState(false);
 
   useEffect(() => {
     autoUpdateFilter({
@@ -51,14 +50,13 @@ const PopularItems = () => {
     });
   }, [queryTotalPages]);
 
-
   useEffect(() => {
     const getPopularItems = async () => {
       setPopularItems([]);
       const url = `/items/popular?sortOrder=${filter.order}&sortField=${filter.sort}&page=${filter.page}&limit=24`; //^ sadly, it cannot be in multiple lines.
       await axios.get(url).then((response) => {
         setPopularItems(response.data.items);
-        setQueryTotalPages(response.data.queryTotalPages)
+        setQueryTotalPages(response.data.queryTotalPages);
       });
     };
 
@@ -83,34 +81,52 @@ const PopularItems = () => {
 
   const myPopularItems = mapPopularItems(popularItems);
 
+  const handleSortChange = () => {
+    setToggleSort(!toggleSort);
+  };
+
   if (!id) {
     return (
       <>
         <div className="banner">
-          {/* <div className="banner-icons">
-            <AiFillThunderbolt className="heart" />
-            <AiFillThunderbolt className="heart1" />
-          </div> */}
           <div className="popular-header">
             <h1>Most popular items</h1>
           </div>
         </div>
         <div className="main">
-          <SortOptions
-            sortField={sortField}
-            sortOrder={sortOrder}
-            onSortChange={handleSortOrderChange}
-          />
+          <div className="sortoptions">
+            <SortOptions
+              sortField={sortField}
+              sortOrder={sortOrder}
+              onSortChange={handleSortOrderChange}
+            />
+          </div>
           <div className="main-items">
-            <div className="main-items_items">
-              {myPopularItems.length === 0 ? (
-                <MyLoader />
-              ) : (
-              myPopularItems.map((item) => (
-                <Link key={item._id} to={`${item._id}`}>
-                  <ItemCard key={item._id} item={item} />
-                </Link>
-              )))}
+            <div className="navphone">
+              <div className="navphone_filterby" onClick={handleSortChange}>
+                <TbArrowsDownUp />
+                <p>Sort by</p>
+              </div>
+            </div>
+            {toggleSort && (
+              <SortOptionsMobile
+                sortField={sortField}
+                sortOrder={sortOrder}
+                onSortChange={handleSortOrderChange}
+              />
+            )}
+            <div className="items_container">
+              <div className="main-items_items">
+                {myPopularItems.length === 0 ? (
+                  <MiscLoader />
+                ) : (
+                  myPopularItems.map((item) => (
+                    <Link key={item._id} to={`${item._id}`}>
+                      <ItemCard key={item._id} item={item} />
+                    </Link>
+                  ))
+                )}
+              </div>
             </div>
           </div>
           <nav>
